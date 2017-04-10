@@ -17,9 +17,11 @@
 @property (nonatomic, strong) SFSpeechAudioBufferRecognitionRequest *sfSpeechRecognitionRequest;
 @property (nonatomic, strong) SFSpeechRecognitionTask * sfSpeechRecogTask;
 
-
+// 录音
+@property (nonatomic, strong) AVAudioEngine *audioEngine;
 @property (nonatomic, strong) AVCaptureSession * avCapture;
 @property (nonatomic, strong) NSMutableArray * audio_pieces; // siri 录音
+
 
 @end
 
@@ -37,12 +39,36 @@ static CYSiriRecognizer *_instance;
 
 - (instancetype)init {
     if (self = [super init]) {
-        [self initAVCapture]; // 录音
+        [self initAVCapture]; // 初始化录音
+//        [self initAudioEngine];
+        self.sf_do_not_send_user_is_speaking = false;
         [self initSiriRecorderAndRecognizer]; // 识别
     }
     return self;
 }
 
+- (void)initAudioEngine {
+    self.audioEngine = [[AVAudioEngine alloc] init];
+    // 初始化语音处理器的输入模式
+    [self.audioEngine.inputNode installTapOnBus:0 bufferSize:16000 format:[self.audioEngine.inputNode outputFormatForBus: 0] block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
+        
+        // 此时不再对 siri 录音结果识别
+        if (self.sf_do_not_send_user_is_speaking) {
+            return;
+        }
+        [self.audio_pieces addObject:buffer];
+        if (self.sf_can_handle_audio) {
+            for (id buf in self.audio_pieces) {
+                // 为语音识别请求对象添加一个AudioPCMBuffer，来获取声音数据
+                [self.sfSpeechRecognitionRequest appendAudioPCMBuffer:buf];
+            }
+            [self.audio_pieces removeAllObjects];
+        }
+    }];
+    
+    // 语音处理器准备就绪（会为一些audioEngine启动时所必须的资源开辟内存）
+    [self.audioEngine prepare];
+}
 
 
 #pragma mark - 启动和停止Siri录音(而讯飞是自己录音)
@@ -97,20 +123,44 @@ static CYSiriRecognizer *_instance;
  开始录音
  */
 - (void)startAVCapture {
-    if (self.avCapture != nil && ![self.avCapture isRunning]){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Siri 开始录音");
-            [self.avCapture startRunning];
-        });
+//    if (self.avCapture != nil && ![self.avCapture isRunning]){
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSLog(@"Siri 开始录音");
+//            [self.avCapture startRunning];
+//        });
+//    }
+    
+    if (self.audioEngine != nil && ![self.audioEngine isRunning]) {
+        NSError *error;
+        // 启动声音处理器
+        [self.audioEngine startAndReturnError: &error];
     }
 }
 
 - (void)endAVCapture {
-    if (self.avCapture != nil && [self.avCapture isRunning]){
-        NSLog(@"Siri 结束录音");
-        [self.avCapture stopRunning];
+//    if (self.avCapture != nil && [self.avCapture isRunning]){
+//        NSLog(@"Siri 结束录音");
+//        [self.avCapture stopRunning];
+//    }
+    
+    if (self.audioEngine != nil && [self.audioEngine isRunning]) {
+        [self.audioEngine stop];
     }
 }
+
+// 开始录音
+- (void)startListen {
+    self.sf_can_handle_audio = true;
+    [self startAVCapture];
+}
+
+// 停止录音
+- (void)endListen {
+    self.sf_can_handle_audio = false;
+    [self endAVCapture]; // 停止录音
+}
+
+
 
 #pragma mark - AVCaptureAudioDataOutputSampleBufferDelegate
 
@@ -128,7 +178,7 @@ static CYSiriRecognizer *_instance;
 #pragma mark - 启动和结束Siri语音识别
 
 - (void)initSiriRecorderAndRecognizer {
-
+    
     // 申请权限
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
         switch (status) {
@@ -145,7 +195,7 @@ static CYSiriRecognizer *_instance;
                 NSLog(@"Siri 开始录音初始化");
                 [self initRecognizer];
                 [self startRecognizer];
-                [self startAVCapture];
+//                [self startAVCapture];
                 break;
             default:
                 break;
@@ -154,14 +204,12 @@ static CYSiriRecognizer *_instance;
 }
 
 - (void)initRecognizer {
-    
     self.sfSpeechRecogTask = nil;
     self.sfRecognizePartialResult = @"";
     self.sfRecognizePartialResultConfidence = 0;
     
-    NSLocale *local =[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    self.sfSpeechRecognizer =[[SFSpeechRecognizer alloc] initWithLocale:local];
-    
+    NSLocale *local = [[NSLocale alloc] initWithLocaleIdentifier:@"en-us"];
+    self.sfSpeechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:local];
 }
 
 - (void)getAllSupportedLocales {
@@ -180,38 +228,49 @@ static CYSiriRecognizer *_instance;
  */
 - (void)startRecognizer {
     NSLog(@"Siri 开始语音识别");
+    
+    self.sf_can_handle_audio = true;
+    
     self.sfSpeechRecognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
     [self.sfSpeechRecognizer setDelegate:nil];
-    // self.sfSpeechRecogTask = [self.sfSpeechRecognizer recognitionTaskWithRequest:self.sfSpeechRecognitionRequest delegate:self];
-    self.sfSpeechRecogTask = [self.sfSpeechRecognizer recognitionTaskWithRequest:self.sfSpeechRecognitionRequest resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
-
-        float avg_confidence = 0;
-        for (SFTranscriptionSegment *seg in result.bestTranscription.segments) {
-            avg_confidence += seg.confidence;
-        }
-        avg_confidence = avg_confidence / [result.bestTranscription.segments count];
-        NSLog(@"get Final:%@ 置信度 %f", result.bestTranscription.formattedString, avg_confidence);
-        if (self.finishRecognizeBlock) {
-            self.finishRecognizeBlock(result.bestTranscription.formattedString, avg_confidence);
-        }
-        
-        if (result.isFinal && error != nil) {
-            self.sfSpeechRecogTask = nil;
-            self.sfSpeechRecognitionRequest = nil;
-        }
-        
-    }];
-//    [self startAVCapture];
+     self.sfSpeechRecogTask = [self.sfSpeechRecognizer recognitionTaskWithRequest:self.sfSpeechRecognitionRequest delegate:self];
+    
+//    __weak typeof(self) weakSelf = self;
+//    self.sfSpeechRecogTask = [self.sfSpeechRecognizer recognitionTaskWithRequest:self.sfSpeechRecognitionRequest resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
+//        if (result == nil) {
+//            NSLog(@"siri result nil!");
+//            return;
+//        }
+//        float avg_confidence = 0;
+//        for (SFTranscriptionSegment *seg in result.bestTranscription.segments) {
+//            avg_confidence += seg.confidence;
+//        }
+//        avg_confidence = avg_confidence / [result.bestTranscription.segments count];
+//     
+//        weakSelf.sfRecognizePartialResult = result.bestTranscription.formattedString;
+//        weakSelf.sfRecognizePartialResultConfidence = avg_confidence;
+//        
+//        if (result.isFinal && error != nil) {
+//            NSLog(@"get Final:%@ 置信度 %f", result.bestTranscription.formattedString, avg_confidence);
+//            if (self.finishRecognizeBlock != nil) {
+//                self.finishRecognizeBlock(weakSelf.sfRecognizePartialResult, weakSelf.sfRecognizePartialResultConfidence);
+//            }
+//        }
+//    }];
+    
 }
 
 - (void)stopRecognizer {
     // END capture and END voice Reco
     // or Apple will terminate this task after 30000ms.
     NSLog(@"Siri 停止语音识别");
-    [self endAVCapture];
+    [self endAVCapture]; // 先停止录音
     [self.sfSpeechRecognitionRequest endAudio];
 //    [self.sfSpeechRecogTask cancel];
+
 }
+
+
 
 
 #pragma mark - SFSpeechRecognitionTaskDelegate
@@ -266,11 +325,12 @@ static CYSiriRecognizer *_instance;
     NSLog(@"SFLOG:voice recognition is over with %@, try to restart.", successfully ? @"TRUE" : task.error);
     
     if (successfully) {
-//        [self startRecognizer];
+        [self startRecognizer];
     } else {
         NSLog(@"SFLOG: sth is wrong, endRecognizer and stop capture");
         [self stopRecognizer];
         [self initSiriRecorderAndRecognizer];
+        [self startAVCapture];
     }
 }
 
@@ -283,6 +343,7 @@ static CYSiriRecognizer *_instance;
     }
     return _audio_pieces;
 }
+
 
 
 @end

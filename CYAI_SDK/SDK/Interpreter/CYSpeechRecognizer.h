@@ -21,7 +21,9 @@ typedef enum : NSUInteger {
 @protocol CYSpeechRecognizerDelegate <NSObject>
 
 - (void)beginSayTextWithSource:(NSString *)source target:(NSString *)target;
-                                
+
+- (void)whenSpeakerOver;
+
 @end
 
 
@@ -35,6 +37,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) CYThreadRunloop *threadLoop;
 
 @property (nonatomic, strong) CYCollectionQueue *collectionQueue;
+
+// 语音合成状态
+@property (nonatomic, assign) BOOL isSpeaking;
 
 
 @property (nonatomic, assign) id <CYSpeechRecognizerDelegate> delegate;

@@ -23,14 +23,15 @@
  */
 @interface CYSpeechRecognizer ()
 
+
 @property (nonatomic, strong) CYIflyRecognizer *iflyRecognizer;
 @property (nonatomic, strong) CYSiriRecognizer *siriRecognizer;
-
 
 // 识别结果
 @property (nonatomic, strong) CYSpeechSession *session;
 
 @property (nonatomic, assign) long long timeIntervel;
+
 
 @end
 
@@ -46,6 +47,7 @@ static id _instance;
     });
     return _instance;
 }
+
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -72,12 +74,12 @@ static id _instance;
          这次讯飞识别结束了, 所以英文不需要继续识别了, 但是英文需要返回 Final Result 结果
          调用此方法会触发 siri 的识别结束回调方法
          */
-        [weakSelf.siriRecognizer stopRecognizer];
-//        [weakSelf.siriRecognizer endAVCapture];
+        [weakSelf.siriRecognizer endListen];
         
         [weakSelf handleSessionWithType:CYRecognizeTypeIfly asrWords:resultStr asrConfidence:asrConfidence];
     };
 }
+
 
 // 初始化 siri 识别器
 - (void)initSisiRecognizer {
@@ -87,6 +89,7 @@ static id _instance;
     };
 }
 
+
 - (void)initSpeaker {
     __weak typeof(self) weakSelf = self;
     // 合成完毕
@@ -94,6 +97,12 @@ static id _instance;
         NSLog(@"speakOver");
         // 当语音合成完毕后开始识别
         [weakSelf startRecognizers];
+
+        weakSelf.siriRecognizer.sf_do_not_send_user_is_speaking = false;
+        
+        if ([weakSelf.delegate respondsToSelector:@selector(whenSpeakerOver)]) {
+            [weakSelf.delegate whenSpeakerOver];
+        }
     };
 }
 
@@ -103,13 +112,14 @@ static id _instance;
     // 讯飞开始监听
     [self.iflyRecognizer startListen];
     // siri 开始监听
-    [self.siriRecognizer startAVCapture];
+    [self.siriRecognizer startListen];
 }
 
 // 停止讯飞和 siri 的语音识别
 - (void)stopRecognizers {
     [self.iflyRecognizer stopListen];
-    [self.siriRecognizer endAVCapture];
+    
+    [self.siriRecognizer endListen];
 }
 
 
@@ -169,11 +179,20 @@ static id _instance;
     if ([self.delegate respondsToSelector:@selector(beginSayTextWithSource:target:)]) {
         [self.delegate beginSayTextWithSource:session.adoptSessionWords.asrWords target:session.adoptSessionWords.transWords];
     }
+    
     NSString *speakString = session.adoptSessionWords.transWords;
     [self sayText:speakString];
 }
 
 - (void)sayText:(NSString *)text {
+    
+    self.isSpeaking = true;
+    
+    // 此时不再识别 siri 录音回调结果
+    self.siriRecognizer.sf_do_not_send_user_is_speaking = true;
+    
+    [self.iflyRecognizer stopListening];
+    
     [self.speaker sayText:text];
 }
 

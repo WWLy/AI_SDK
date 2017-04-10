@@ -74,7 +74,6 @@ static id _instance;
 - (void)sayText:(NSString *)aString {
 
     NSLog(@"开始合成,停止识别");
-    [[CYSpeechRecognizer shareInstance] stopRecognizers];
     
     AVSpeechUtterance *avSpeechUtterance = [AVSpeechUtterance speechUtteranceWithString:aString];
     

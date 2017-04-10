@@ -12,7 +12,6 @@
 
 @property (nonatomic, copy) void(^speakOver)();
 
-
 + (instancetype)shareInstance;
 
 // 读出一段文字

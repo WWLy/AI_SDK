@@ -10,6 +10,7 @@
 #import "iflyMSC/IFlyMSC.h"
 #import "IATConfig.h"
 #import "ISRDataHelper.h"
+#import "CYSpeechRecognizer.h"
 
 @interface CYIflyRecognizer () <IFlySpeechRecognizerDelegate>
 
@@ -110,10 +111,17 @@ static id _instance;
     }
 }
 
-// 取消此次回话, 停止识别
+// 取消此次回话, 停止录音, 停止识别
 - (void)stopListen {
     NSLog(@"讯飞停止识别");
+    [_iFlySpeechRecognizer stopListening];
     [_iFlySpeechRecognizer cancel];
+    [_iFlySpeechRecognizer setDelegate:nil];
+    [_iFlySpeechRecognizer setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
+}
+
+- (void)stopListening {
+    [_iFlySpeechRecognizer stopListening];
 }
 
 // 设置中文口音识别
@@ -155,12 +163,16 @@ static id _instance;
         [resultString appendFormat:@"%@",key];
     }
     NSString * resultFromJson =  [ISRDataHelper stringFromJson:resultString];
+
     NSLog(@"听写结果：%@", resultFromJson);
     
     if (isLast) {
-        //最后一次识别结果, 此时会自动停止监听, 需要手动开启
-        NSLog(@"最后一次识别结果, 此时会自动停止监听, 手动开启识别");
-        [self.iFlySpeechRecognizer startListening];
+        // 当前没有语音合成进程
+        if (![CYSpeechRecognizer shareInstance].isSpeaking) {
+            //最后一次识别结果, 此时会自动停止监听, 需要手动开启
+            NSLog(@"最后一次识别结果, 此时会自动停止监听, 手动开启识别");
+            [self.iFlySpeechRecognizer startListening];
+        }
         return; //do not translate when we hear it.
     }
     
@@ -211,7 +223,7 @@ static id _instance;
         words = [words stringByReplacingOccurrencesOfString: @"了 呢" withString:@"了"];
         words = [words stringByReplacingOccurrencesOfString: @"？" withString:@" "];
         words = [words stringByReplacingOccurrencesOfString: @"?" withString:@" "];
-        
+    
         self.recognizeResult = words;
         
         self.finishRecognizeBlock(words, source_confidence);
