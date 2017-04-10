@@ -1,0 +1,648 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F42999C11E8A5F1C00FE79FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F42999C01E8A5F1C00FE79FD /* main.m */; };
+		F42999C41E8A5F1C00FE79FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F42999C31E8A5F1C00FE79FD /* AppDelegate.m */; };
+		F42999C71E8A5F1C00FE79FD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42999C61E8A5F1C00FE79FD /* ViewController.m */; };
+		F42999CA1E8A5F1C00FE79FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F42999C81E8A5F1C00FE79FD /* Main.storyboard */; };
+		F42999CC1E8A5F1C00FE79FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F42999CB1E8A5F1C00FE79FD /* Assets.xcassets */; };
+		F42999CF1E8A5F1C00FE79FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F42999CD1E8A5F1C00FE79FD /* LaunchScreen.storyboard */; };
+		F42999E41E8A5FC200FE79FD /* CYSpeechRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F42999DE1E8A5FC200FE79FD /* CYSpeechRecognizer.m */; };
+		F42999E81E8A602800FE79FD /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999E71E8A602800FE79FD /* iflyMSC.framework */; };
+		F42999EA1E8A605B00FE79FD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999E91E8A605B00FE79FD /* libz.tbd */; };
+		F42999EC1E8A606C00FE79FD /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999EB1E8A606C00FE79FD /* CoreTelephony.framework */; };
+		F42999EE1E8A607500FE79FD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999ED1E8A607500FE79FD /* CoreLocation.framework */; };
+		F42999F01E8A607B00FE79FD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999EF1E8A607B00FE79FD /* AVFoundation.framework */; };
+		F42999F21E8A608900FE79FD /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999F11E8A608900FE79FD /* AddressBook.framework */; };
+		F42999F41E8A609400FE79FD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999F31E8A609400FE79FD /* AudioToolbox.framework */; };
+		F42999F61E8A609A00FE79FD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999F51E8A609A00FE79FD /* SystemConfiguration.framework */; };
+		F42999F81E8A60A100FE79FD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999F71E8A60A100FE79FD /* QuartzCore.framework */; };
+		F42999FA1E8A60A900FE79FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42999F91E8A60A900FE79FD /* CoreGraphics.framework */; };
+		F4299A021E8A643000FE79FD /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4299A011E8A643000FE79FD /* Speech.framework */; };
+		F4299A461E8CAB9800FE79FD /* CYIflyRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A311E8CAB9800FE79FD /* CYIflyRecognizer.m */; };
+		F4299A481E8CAB9800FE79FD /* CYSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A351E8CAB9800FE79FD /* CYSettingsManager.m */; };
+		F4299A491E8CAB9800FE79FD /* IATConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A381E8CAB9800FE79FD /* IATConfig.m */; };
+		F4299A4A1E8CAB9800FE79FD /* ISRDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A3A1E8CAB9800FE79FD /* ISRDataHelper.m */; };
+		F4299A4B1E8CAB9800FE79FD /* CYSessionWords.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A3D1E8CAB9800FE79FD /* CYSessionWords.m */; };
+		F4299A4C1E8CAB9800FE79FD /* CYSpeechSession.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A3F1E8CAB9800FE79FD /* CYSpeechSession.m */; };
+		F4299A4D1E8CAB9800FE79FD /* CYSiriRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A421E8CAB9800FE79FD /* CYSiriRecognizer.m */; };
+		F4299A4E1E8CAB9800FE79FD /* CYTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A451E8CAB9800FE79FD /* CYTranslator.m */; };
+		F4299A551E8CABDA00FE79FD /* CYCollectionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A541E8CABDA00FE79FD /* CYCollectionQueue.m */; };
+		F4299A591E8D091A00FE79FD /* CYLanguageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = F4299A581E8D091A00FE79FD /* CYLanguageDefine.m */; };
+		F447E7A01E8E0F9F00426CFB /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = F447E79D1E8E0F9F00426CFB /* Config.m */; };
+		F447E7A11E8E0F9F00426CFB /* CYUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = F447E79F1E8E0F9F00426CFB /* CYUtility.m */; };
+		F447E7A41E8E503200426CFB /* CYTranslateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F447E7A31E8E503200426CFB /* CYTranslateModel.m */; };
+		F447E7A71E8E550700426CFB /* BNNSLanguageDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = F447E7A61E8E550700426CFB /* BNNSLanguageDetection.m */; };
+		F447E7B21E8E558300426CFB /* bias1 in Resources */ = {isa = PBXBuildFile; fileRef = F447E7A91E8E558300426CFB /* bias1 */; };
+		F447E7B31E8E558300426CFB /* bias2 in Resources */ = {isa = PBXBuildFile; fileRef = F447E7AA1E8E558300426CFB /* bias2 */; };
+		F447E7B41E8E558300426CFB /* bias3 in Resources */ = {isa = PBXBuildFile; fileRef = F447E7AB1E8E558300426CFB /* bias3 */; };
+		F447E7B51E8E558300426CFB /* bias4 in Resources */ = {isa = PBXBuildFile; fileRef = F447E7AC1E8E558300426CFB /* bias4 */; };
+		F447E7B61E8E558300426CFB /* bnns_model in Resources */ = {isa = PBXBuildFile; fileRef = F447E7AD1E8E558300426CFB /* bnns_model */; };
+		F447E7B71E8E558300426CFB /* weight1 in Resources */ = {isa = PBXBuildFile; fileRef = F447E7AE1E8E558300426CFB /* weight1 */; };
+		F447E7B81E8E558300426CFB /* weight2 in Resources */ = {isa = PBXBuildFile; fileRef = F447E7AF1E8E558300426CFB /* weight2 */; };
+		F447E7B91E8E558300426CFB /* weight3 in Resources */ = {isa = PBXBuildFile; fileRef = F447E7B01E8E558300426CFB /* weight3 */; };
+		F447E7BA1E8E558300426CFB /* weight4 in Resources */ = {isa = PBXBuildFile; fileRef = F447E7B11E8E558300426CFB /* weight4 */; };
+		F4B59C621E94A86200C62B90 /* CYSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B59C611E94A86200C62B90 /* CYSpeaker.m */; };
+		F4B59C661E94F74F00C62B90 /* CYThreadRunloop.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B59C651E94F74F00C62B90 /* CYThreadRunloop.m */; };
+		F4B59C6A1E9636B200C62B90 /* CYPolicyMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B59C691E9636B200C62B90 /* CYPolicyMaker.m */; };
+		F4B59C6E1E963DE600C62B90 /* CYDataCollector.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B59C6D1E963DE600C62B90 /* CYDataCollector.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F42999BC1E8A5F1C00FE79FD /* CYAI_SDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CYAI_SDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F42999C01E8A5F1C00FE79FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F42999C21E8A5F1C00FE79FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F42999C31E8A5F1C00FE79FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F42999C51E8A5F1C00FE79FD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F42999C61E8A5F1C00FE79FD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F42999C91E8A5F1C00FE79FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F42999CB1E8A5F1C00FE79FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F42999CE1E8A5F1C00FE79FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F42999D01E8A5F1C00FE79FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F42999DD1E8A5FC200FE79FD /* CYSpeechRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYSpeechRecognizer.h; sourceTree = "<group>"; };
+		F42999DE1E8A5FC200FE79FD /* CYSpeechRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYSpeechRecognizer.m; sourceTree = "<group>"; };
+		F42999E71E8A602800FE79FD /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = CYAI_SDK/SDK/Lib/iflyMSC.framework; sourceTree = "<group>"; };
+		F42999E91E8A605B00FE79FD /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		F42999EB1E8A606C00FE79FD /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		F42999ED1E8A607500FE79FD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F42999EF1E8A607B00FE79FD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		F42999F11E8A608900FE79FD /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		F42999F31E8A609400FE79FD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		F42999F51E8A609A00FE79FD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F42999F71E8A60A100FE79FD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F42999F91E8A60A900FE79FD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F42999FB1E8A60FA00FE79FD /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		F42999FD1E8A612F00FE79FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F42999FF1E8A613500FE79FD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F4299A011E8A643000FE79FD /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
+		F4299A301E8CAB9800FE79FD /* CYIflyRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYIflyRecognizer.h; sourceTree = "<group>"; };
+		F4299A311E8CAB9800FE79FD /* CYIflyRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYIflyRecognizer.m; sourceTree = "<group>"; };
+		F4299A341E8CAB9800FE79FD /* CYSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYSettingsManager.h; sourceTree = "<group>"; };
+		F4299A351E8CAB9800FE79FD /* CYSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYSettingsManager.m; sourceTree = "<group>"; };
+		F4299A361E8CAB9800FE79FD /* Definition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definition.h; sourceTree = "<group>"; };
+		F4299A371E8CAB9800FE79FD /* IATConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IATConfig.h; sourceTree = "<group>"; };
+		F4299A381E8CAB9800FE79FD /* IATConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATConfig.m; sourceTree = "<group>"; };
+		F4299A391E8CAB9800FE79FD /* ISRDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISRDataHelper.h; sourceTree = "<group>"; };
+		F4299A3A1E8CAB9800FE79FD /* ISRDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISRDataHelper.m; sourceTree = "<group>"; };
+		F4299A3C1E8CAB9800FE79FD /* CYSessionWords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYSessionWords.h; sourceTree = "<group>"; };
+		F4299A3D1E8CAB9800FE79FD /* CYSessionWords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYSessionWords.m; sourceTree = "<group>"; };
+		F4299A3E1E8CAB9800FE79FD /* CYSpeechSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYSpeechSession.h; sourceTree = "<group>"; };
+		F4299A3F1E8CAB9800FE79FD /* CYSpeechSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYSpeechSession.m; sourceTree = "<group>"; };
+		F4299A411E8CAB9800FE79FD /* CYSiriRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYSiriRecognizer.h; sourceTree = "<group>"; };
+		F4299A421E8CAB9800FE79FD /* CYSiriRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYSiriRecognizer.m; sourceTree = "<group>"; };
+		F4299A441E8CAB9800FE79FD /* CYTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYTranslator.h; sourceTree = "<group>"; };
+		F4299A451E8CAB9800FE79FD /* CYTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYTranslator.m; sourceTree = "<group>"; };
+		F4299A531E8CABDA00FE79FD /* CYCollectionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYCollectionQueue.h; sourceTree = "<group>"; };
+		F4299A541E8CABDA00FE79FD /* CYCollectionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYCollectionQueue.m; sourceTree = "<group>"; };
+		F4299A571E8D091A00FE79FD /* CYLanguageDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLanguageDefine.h; sourceTree = "<group>"; };
+		F4299A581E8D091A00FE79FD /* CYLanguageDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLanguageDefine.m; sourceTree = "<group>"; };
+		F447E79C1E8E0F9E00426CFB /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		F447E79D1E8E0F9F00426CFB /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		F447E79E1E8E0F9F00426CFB /* CYUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYUtility.h; sourceTree = "<group>"; };
+		F447E79F1E8E0F9F00426CFB /* CYUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYUtility.m; sourceTree = "<group>"; };
+		F447E7A21E8E503200426CFB /* CYTranslateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYTranslateModel.h; sourceTree = "<group>"; };
+		F447E7A31E8E503200426CFB /* CYTranslateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYTranslateModel.m; sourceTree = "<group>"; };
+		F447E7A51E8E550700426CFB /* BNNSLanguageDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNNSLanguageDetection.h; sourceTree = "<group>"; };
+		F447E7A61E8E550700426CFB /* BNNSLanguageDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNNSLanguageDetection.m; sourceTree = "<group>"; };
+		F447E7A91E8E558300426CFB /* bias1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bias1; sourceTree = "<group>"; };
+		F447E7AA1E8E558300426CFB /* bias2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bias2; sourceTree = "<group>"; };
+		F447E7AB1E8E558300426CFB /* bias3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bias3; sourceTree = "<group>"; };
+		F447E7AC1E8E558300426CFB /* bias4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bias4; sourceTree = "<group>"; };
+		F447E7AD1E8E558300426CFB /* bnns_model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bnns_model; sourceTree = "<group>"; };
+		F447E7AE1E8E558300426CFB /* weight1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = weight1; sourceTree = "<group>"; };
+		F447E7AF1E8E558300426CFB /* weight2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = weight2; sourceTree = "<group>"; };
+		F447E7B01E8E558300426CFB /* weight3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = weight3; sourceTree = "<group>"; };
+		F447E7B11E8E558300426CFB /* weight4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = weight4; sourceTree = "<group>"; };
+		F4B59C601E94A86200C62B90 /* CYSpeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYSpeaker.h; sourceTree = "<group>"; };
+		F4B59C611E94A86200C62B90 /* CYSpeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYSpeaker.m; sourceTree = "<group>"; };
+		F4B59C641E94F74F00C62B90 /* CYThreadRunloop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYThreadRunloop.h; sourceTree = "<group>"; };
+		F4B59C651E94F74F00C62B90 /* CYThreadRunloop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYThreadRunloop.m; sourceTree = "<group>"; };
+		F4B59C681E9636B200C62B90 /* CYPolicyMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYPolicyMaker.h; sourceTree = "<group>"; };
+		F4B59C691E9636B200C62B90 /* CYPolicyMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYPolicyMaker.m; sourceTree = "<group>"; };
+		F4B59C6C1E963DE600C62B90 /* CYDataCollector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYDataCollector.h; sourceTree = "<group>"; };
+		F4B59C6D1E963DE600C62B90 /* CYDataCollector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYDataCollector.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F42999B91E8A5F1C00FE79FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4299A021E8A643000FE79FD /* Speech.framework in Frameworks */,
+				F42999FA1E8A60A900FE79FD /* CoreGraphics.framework in Frameworks */,
+				F42999F81E8A60A100FE79FD /* QuartzCore.framework in Frameworks */,
+				F42999F61E8A609A00FE79FD /* SystemConfiguration.framework in Frameworks */,
+				F42999F41E8A609400FE79FD /* AudioToolbox.framework in Frameworks */,
+				F42999F21E8A608900FE79FD /* AddressBook.framework in Frameworks */,
+				F42999F01E8A607B00FE79FD /* AVFoundation.framework in Frameworks */,
+				F42999EE1E8A607500FE79FD /* CoreLocation.framework in Frameworks */,
+				F42999EC1E8A606C00FE79FD /* CoreTelephony.framework in Frameworks */,
+				F42999EA1E8A605B00FE79FD /* libz.tbd in Frameworks */,
+				F42999E81E8A602800FE79FD /* iflyMSC.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F42999B31E8A5F1C00FE79FD = {
+			isa = PBXGroup;
+			children = (
+				F42999BE1E8A5F1C00FE79FD /* CYAI_SDK */,
+				F42999BD1E8A5F1C00FE79FD /* Products */,
+				F42999E61E8A602800FE79FD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F42999BD1E8A5F1C00FE79FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F42999BC1E8A5F1C00FE79FD /* CYAI_SDK.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F42999BE1E8A5F1C00FE79FD /* CYAI_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				F42999C21E8A5F1C00FE79FD /* AppDelegate.h */,
+				F42999C31E8A5F1C00FE79FD /* AppDelegate.m */,
+				F42999C51E8A5F1C00FE79FD /* ViewController.h */,
+				F42999C61E8A5F1C00FE79FD /* ViewController.m */,
+				F42999D61E8A5F5E00FE79FD /* SDK */,
+				F42999C81E8A5F1C00FE79FD /* Main.storyboard */,
+				F42999CB1E8A5F1C00FE79FD /* Assets.xcassets */,
+				F42999CD1E8A5F1C00FE79FD /* LaunchScreen.storyboard */,
+				F42999D01E8A5F1C00FE79FD /* Info.plist */,
+				F42999BF1E8A5F1C00FE79FD /* Supporting Files */,
+			);
+			path = CYAI_SDK;
+			sourceTree = "<group>";
+		};
+		F42999BF1E8A5F1C00FE79FD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F42999C01E8A5F1C00FE79FD /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F42999D61E8A5F5E00FE79FD /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				F4B59C6B1E963DDA00C62B90 /* DataCollector */,
+				F4B59C671E96369400C62B90 /* PolicyMaker */,
+				F4B59C631E94F72500C62B90 /* Thread */,
+				F4299A521E8CABCE00FE79FD /* Queue */,
+				F4299A3B1E8CAB9800FE79FD /* Session */,
+				F42999D71E8A5F5E00FE79FD /* Interpreter */,
+				F4299A2F1E8CAB9800FE79FD /* IflyRecognizer */,
+				F4299A401E8CAB9800FE79FD /* SiriRecognizer */,
+				F4299A431E8CAB9800FE79FD /* Translator */,
+				F4B59C5F1E94A69300C62B90 /* Speaker */,
+				F4299A561E8D08F900FE79FD /* Const */,
+				F447E7A81E8E558300426CFB /* Data */,
+			);
+			path = SDK;
+			sourceTree = "<group>";
+		};
+		F42999D71E8A5F5E00FE79FD /* Interpreter */ = {
+			isa = PBXGroup;
+			children = (
+				F42999DD1E8A5FC200FE79FD /* CYSpeechRecognizer.h */,
+				F42999DE1E8A5FC200FE79FD /* CYSpeechRecognizer.m */,
+				F447E7A51E8E550700426CFB /* BNNSLanguageDetection.h */,
+				F447E7A61E8E550700426CFB /* BNNSLanguageDetection.m */,
+			);
+			path = Interpreter;
+			sourceTree = "<group>";
+		};
+		F42999E61E8A602800FE79FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4299A011E8A643000FE79FD /* Speech.framework */,
+				F42999FF1E8A613500FE79FD /* UIKit.framework */,
+				F42999FD1E8A612F00FE79FD /* Foundation.framework */,
+				F42999FB1E8A60FA00FE79FD /* Contacts.framework */,
+				F42999F91E8A60A900FE79FD /* CoreGraphics.framework */,
+				F42999F71E8A60A100FE79FD /* QuartzCore.framework */,
+				F42999F51E8A609A00FE79FD /* SystemConfiguration.framework */,
+				F42999F31E8A609400FE79FD /* AudioToolbox.framework */,
+				F42999F11E8A608900FE79FD /* AddressBook.framework */,
+				F42999EF1E8A607B00FE79FD /* AVFoundation.framework */,
+				F42999ED1E8A607500FE79FD /* CoreLocation.framework */,
+				F42999EB1E8A606C00FE79FD /* CoreTelephony.framework */,
+				F42999E91E8A605B00FE79FD /* libz.tbd */,
+				F42999E71E8A602800FE79FD /* iflyMSC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F4299A2F1E8CAB9800FE79FD /* IflyRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				F4299A301E8CAB9800FE79FD /* CYIflyRecognizer.h */,
+				F4299A311E8CAB9800FE79FD /* CYIflyRecognizer.m */,
+				F4299A341E8CAB9800FE79FD /* CYSettingsManager.h */,
+				F4299A351E8CAB9800FE79FD /* CYSettingsManager.m */,
+				F4299A361E8CAB9800FE79FD /* Definition.h */,
+				F4299A371E8CAB9800FE79FD /* IATConfig.h */,
+				F4299A381E8CAB9800FE79FD /* IATConfig.m */,
+				F4299A391E8CAB9800FE79FD /* ISRDataHelper.h */,
+				F4299A3A1E8CAB9800FE79FD /* ISRDataHelper.m */,
+			);
+			path = IflyRecognizer;
+			sourceTree = "<group>";
+		};
+		F4299A3B1E8CAB9800FE79FD /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				F4299A3E1E8CAB9800FE79FD /* CYSpeechSession.h */,
+				F4299A3F1E8CAB9800FE79FD /* CYSpeechSession.m */,
+				F4299A3C1E8CAB9800FE79FD /* CYSessionWords.h */,
+				F4299A3D1E8CAB9800FE79FD /* CYSessionWords.m */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		F4299A401E8CAB9800FE79FD /* SiriRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				F4299A411E8CAB9800FE79FD /* CYSiriRecognizer.h */,
+				F4299A421E8CAB9800FE79FD /* CYSiriRecognizer.m */,
+			);
+			path = SiriRecognizer;
+			sourceTree = "<group>";
+		};
+		F4299A431E8CAB9800FE79FD /* Translator */ = {
+			isa = PBXGroup;
+			children = (
+				F4299A441E8CAB9800FE79FD /* CYTranslator.h */,
+				F4299A451E8CAB9800FE79FD /* CYTranslator.m */,
+				F447E7A21E8E503200426CFB /* CYTranslateModel.h */,
+				F447E7A31E8E503200426CFB /* CYTranslateModel.m */,
+			);
+			path = Translator;
+			sourceTree = "<group>";
+		};
+		F4299A521E8CABCE00FE79FD /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				F4299A531E8CABDA00FE79FD /* CYCollectionQueue.h */,
+				F4299A541E8CABDA00FE79FD /* CYCollectionQueue.m */,
+			);
+			path = Queue;
+			sourceTree = "<group>";
+		};
+		F4299A561E8D08F900FE79FD /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				F447E79C1E8E0F9E00426CFB /* Config.h */,
+				F447E79D1E8E0F9F00426CFB /* Config.m */,
+				F447E79E1E8E0F9F00426CFB /* CYUtility.h */,
+				F447E79F1E8E0F9F00426CFB /* CYUtility.m */,
+				F4299A571E8D091A00FE79FD /* CYLanguageDefine.h */,
+				F4299A581E8D091A00FE79FD /* CYLanguageDefine.m */,
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
+		F447E7A81E8E558300426CFB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F447E7A91E8E558300426CFB /* bias1 */,
+				F447E7AA1E8E558300426CFB /* bias2 */,
+				F447E7AB1E8E558300426CFB /* bias3 */,
+				F447E7AC1E8E558300426CFB /* bias4 */,
+				F447E7AD1E8E558300426CFB /* bnns_model */,
+				F447E7AE1E8E558300426CFB /* weight1 */,
+				F447E7AF1E8E558300426CFB /* weight2 */,
+				F447E7B01E8E558300426CFB /* weight3 */,
+				F447E7B11E8E558300426CFB /* weight4 */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F4B59C5F1E94A69300C62B90 /* Speaker */ = {
+			isa = PBXGroup;
+			children = (
+				F4B59C601E94A86200C62B90 /* CYSpeaker.h */,
+				F4B59C611E94A86200C62B90 /* CYSpeaker.m */,
+			);
+			path = Speaker;
+			sourceTree = "<group>";
+		};
+		F4B59C631E94F72500C62B90 /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				F4B59C641E94F74F00C62B90 /* CYThreadRunloop.h */,
+				F4B59C651E94F74F00C62B90 /* CYThreadRunloop.m */,
+			);
+			path = Thread;
+			sourceTree = "<group>";
+		};
+		F4B59C671E96369400C62B90 /* PolicyMaker */ = {
+			isa = PBXGroup;
+			children = (
+				F4B59C681E9636B200C62B90 /* CYPolicyMaker.h */,
+				F4B59C691E9636B200C62B90 /* CYPolicyMaker.m */,
+			);
+			path = PolicyMaker;
+			sourceTree = "<group>";
+		};
+		F4B59C6B1E963DDA00C62B90 /* DataCollector */ = {
+			isa = PBXGroup;
+			children = (
+				F4B59C6C1E963DE600C62B90 /* CYDataCollector.h */,
+				F4B59C6D1E963DE600C62B90 /* CYDataCollector.m */,
+			);
+			path = DataCollector;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F42999BB1E8A5F1C00FE79FD /* CYAI_SDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F42999D31E8A5F1C00FE79FD /* Build configuration list for PBXNativeTarget "CYAI_SDK" */;
+			buildPhases = (
+				F42999B81E8A5F1C00FE79FD /* Sources */,
+				F42999B91E8A5F1C00FE79FD /* Frameworks */,
+				F42999BA1E8A5F1C00FE79FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CYAI_SDK;
+			productName = CYAI_SDK;
+			productReference = F42999BC1E8A5F1C00FE79FD /* CYAI_SDK.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F42999B41E8A5F1C00FE79FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = WWLy;
+				TargetAttributes = {
+					F42999BB1E8A5F1C00FE79FD = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = MNAYU668VK;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = F42999B71E8A5F1C00FE79FD /* Build configuration list for PBXProject "CYAI_SDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F42999B31E8A5F1C00FE79FD;
+			productRefGroup = F42999BD1E8A5F1C00FE79FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F42999BB1E8A5F1C00FE79FD /* CYAI_SDK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F42999BA1E8A5F1C00FE79FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F447E7B71E8E558300426CFB /* weight1 in Resources */,
+				F42999CF1E8A5F1C00FE79FD /* LaunchScreen.storyboard in Resources */,
+				F447E7B21E8E558300426CFB /* bias1 in Resources */,
+				F447E7BA1E8E558300426CFB /* weight4 in Resources */,
+				F447E7B51E8E558300426CFB /* bias4 in Resources */,
+				F447E7B61E8E558300426CFB /* bnns_model in Resources */,
+				F447E7B81E8E558300426CFB /* weight2 in Resources */,
+				F42999CC1E8A5F1C00FE79FD /* Assets.xcassets in Resources */,
+				F447E7B41E8E558300426CFB /* bias3 in Resources */,
+				F447E7B31E8E558300426CFB /* bias2 in Resources */,
+				F447E7B91E8E558300426CFB /* weight3 in Resources */,
+				F42999CA1E8A5F1C00FE79FD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F42999B81E8A5F1C00FE79FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4299A481E8CAB9800FE79FD /* CYSettingsManager.m in Sources */,
+				F4299A4E1E8CAB9800FE79FD /* CYTranslator.m in Sources */,
+				F447E7A71E8E550700426CFB /* BNNSLanguageDetection.m in Sources */,
+				F4299A461E8CAB9800FE79FD /* CYIflyRecognizer.m in Sources */,
+				F447E7A41E8E503200426CFB /* CYTranslateModel.m in Sources */,
+				F4B59C6E1E963DE600C62B90 /* CYDataCollector.m in Sources */,
+				F4299A491E8CAB9800FE79FD /* IATConfig.m in Sources */,
+				F4299A4C1E8CAB9800FE79FD /* CYSpeechSession.m in Sources */,
+				F4299A551E8CABDA00FE79FD /* CYCollectionQueue.m in Sources */,
+				F4B59C621E94A86200C62B90 /* CYSpeaker.m in Sources */,
+				F447E7A11E8E0F9F00426CFB /* CYUtility.m in Sources */,
+				F42999E41E8A5FC200FE79FD /* CYSpeechRecognizer.m in Sources */,
+				F4B59C6A1E9636B200C62B90 /* CYPolicyMaker.m in Sources */,
+				F42999C71E8A5F1C00FE79FD /* ViewController.m in Sources */,
+				F4299A4B1E8CAB9800FE79FD /* CYSessionWords.m in Sources */,
+				F4299A4D1E8CAB9800FE79FD /* CYSiriRecognizer.m in Sources */,
+				F447E7A01E8E0F9F00426CFB /* Config.m in Sources */,
+				F4B59C661E94F74F00C62B90 /* CYThreadRunloop.m in Sources */,
+				F4299A4A1E8CAB9800FE79FD /* ISRDataHelper.m in Sources */,
+				F42999C41E8A5F1C00FE79FD /* AppDelegate.m in Sources */,
+				F4299A591E8D091A00FE79FD /* CYLanguageDefine.m in Sources */,
+				F42999C11E8A5F1C00FE79FD /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F42999C81E8A5F1C00FE79FD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F42999C91E8A5F1C00FE79FD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F42999CD1E8A5F1C00FE79FD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F42999CE1E8A5F1C00FE79FD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F42999D11E8A5F1C00FE79FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F42999D21E8A5F1C00FE79FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F42999D41E8A5F1C00FE79FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = MNAYU668VK;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/CYAI_SDK/SDK/Lib",
+				);
+				INFOPLIST_FILE = CYAI_SDK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yyyy.com;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F42999D51E8A5F1C00FE79FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = MNAYU668VK;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/CYAI_SDK/SDK/Lib",
+				);
+				INFOPLIST_FILE = CYAI_SDK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yyyy.com;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F42999B71E8A5F1C00FE79FD /* Build configuration list for PBXProject "CYAI_SDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F42999D11E8A5F1C00FE79FD /* Debug */,
+				F42999D21E8A5F1C00FE79FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F42999D31E8A5F1C00FE79FD /* Build configuration list for PBXNativeTarget "CYAI_SDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F42999D41E8A5F1C00FE79FD /* Debug */,
+				F42999D51E8A5F1C00FE79FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F42999B41E8A5F1C00FE79FD /* Project object */;
+}
