@@ -15,10 +15,10 @@
 @interface CYCollectionQueue : NSObject
 
 // 识别及翻译结果队列
-@property (nonatomic, strong) NSMutableArray<CYSpeechSession *> *recognizeQueue;
+@property (atomic, strong) NSMutableArray<CYSpeechSession *> *recognizeQueue;
 
 // 语音合成队列
-@property (nonatomic, strong) NSMutableArray *speakQueue;
+@property (atomic, strong) NSMutableArray *speakQueue;
 
 
 

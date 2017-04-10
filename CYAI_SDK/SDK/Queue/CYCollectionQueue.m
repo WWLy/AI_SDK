@@ -27,6 +27,14 @@ static id _instance;
     return _instance;
 }
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.recognizeQueue = [NSMutableArray arrayWithCapacity:5];
+        self.speakQueue = [NSMutableArray arrayWithCapacity:5];
+    }
+    return self;
+}
+
 - (CYSpeechSession *)getSpeechSessionWithID:(long long)sessionId {
     NSUInteger sessionCount = self.recognizeQueue.count;
     int i = 0;
@@ -43,19 +51,5 @@ static id _instance;
     return session;
 }
 
-
-- (NSMutableArray<CYSpeechSession *> *)recognizeQueue {
-    if (_recognizeQueue == nil) {
-        _recognizeQueue = [NSMutableArray arrayWithCapacity:10];
-    }
-    return _recognizeQueue;
-}
-
-- (NSMutableArray *)speakQueue {
-    if (_speakQueue == nil) {
-        _speakQueue = [NSMutableArray arrayWithCapacity:10];
-    }
-    return _speakQueue;
-}
 
 @end

@@ -74,7 +74,7 @@ static id _instance;
          这次讯飞识别结束了, 所以英文不需要继续识别了, 但是英文需要返回 Final Result 结果
          调用此方法会触发 siri 的识别结束回调方法
          */
-        [weakSelf.siriRecognizer endListen];
+        [weakSelf.siriRecognizer temp];
         
         [weakSelf handleSessionWithType:CYRecognizeTypeIfly asrWords:resultStr asrConfidence:asrConfidence];
     };
@@ -96,10 +96,14 @@ static id _instance;
     self.speaker.speakOver = ^{
         NSLog(@"speakOver");
         // 当语音合成完毕后开始识别
-        [weakSelf startRecognizers];
-
-        weakSelf.siriRecognizer.sf_do_not_send_user_is_speaking = false;
+//        [weakSelf startRecognizers];
         
+        if (weakSelf.isSpeaking) {
+            [weakSelf.iflyRecognizer startListening];
+            weakSelf.siriRecognizer.sf_do_not_send_user_is_speaking = false;
+            weakSelf.isSpeaking = false;
+        }
+
         if ([weakSelf.delegate respondsToSelector:@selector(whenSpeakerOver)]) {
             [weakSelf.delegate whenSpeakerOver];
         }
@@ -175,7 +179,7 @@ static id _instance;
     if (session == nil) {
         return;
     }
-    [queue.speakQueue removeObjectAtIndex:0];
+    [queue.speakQueue removeObject:session];
     if ([self.delegate respondsToSelector:@selector(beginSayTextWithSource:target:)]) {
         [self.delegate beginSayTextWithSource:session.adoptSessionWords.asrWords target:session.adoptSessionWords.transWords];
     }

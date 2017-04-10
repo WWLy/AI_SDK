@@ -20,7 +20,7 @@
 
 static NSUInteger const largestWaitTime = 2000;
 static float const interval = 100.0 / 1000.0;
-static float const wholeWaitTime = 3000.0 / 1000.0;
+static float const wholeWaitTime = 3000.0;
 
 static id _instance;
 
@@ -72,13 +72,14 @@ static id _instance;
     // 如果讯飞和 siri 都得到翻译结果了
     if (session.siriSessionWords.transWords != nil && session.iflySessionWords.transWords != nil) {
         // 把这个 session 从翻译队列拿到合成队列
-        [queue.recognizeQueue removeObjectAtIndex:0];
+        [queue.recognizeQueue removeObject:session];
         [queue.speakQueue addObject:session];
     }
     // 如果 siri 得到结果但是讯飞没得到结果
     else if (session.siriSessionWords.transWords != nil && session.iflySessionWords.transWords == nil) {
         // 判断是否超时, 如果超时则不再等待
         if (time > session.flagTime + largestWaitTime) {
+            NSLog(@"siri 得到结果但是讯飞没得到结果 超时");
             if (session.iflySessionWords == nil) {
                 session.iflySessionWords = [[CYSessionWords alloc] init];
             }
@@ -86,7 +87,7 @@ static id _instance;
             session.iflySessionWords.asrConfidence = 0;
             session.iflySessionWords.transWords = @"";
             session.iflySessionWords.transConfidence = 0;
-            [queue.recognizeQueue removeObjectAtIndex:0];
+            [queue.recognizeQueue removeObject:session];
             [queue.speakQueue addObject:session];
         }
     }
@@ -94,6 +95,7 @@ static id _instance;
     else if (session.iflySessionWords.transWords != nil && session.siriSessionWords.transWords == nil) {
         // 判断是否超时, 如果超时则不再等待
         if (time > session.flagTime + largestWaitTime) {
+            NSLog(@"讯飞得到结果但是 siri 没有结果 超时");
             if (session.siriSessionWords == nil) {
                 session.siriSessionWords = [[CYSessionWords alloc] init];
             }
@@ -101,7 +103,7 @@ static id _instance;
             session.siriSessionWords.asrConfidence = 0;
             session.siriSessionWords.transWords = @"";
             session.siriSessionWords.transConfidence = 0;
-            [queue.recognizeQueue removeObjectAtIndex:0];
+            [queue.recognizeQueue removeObject:session];
             [queue.speakQueue addObject:session];
         }
     }
@@ -109,11 +111,12 @@ static id _instance;
     else if (session.iflySessionWords.asrWords != nil && session.siriSessionWords.asrWords != nil) {
         // 如果超时
         if (time > session.sessionId + wholeWaitTime) {
+            NSLog(@"讯飞和 siri 都识别出来了 但是都没有翻译结果 超时 sessionId: %zd   time: %zd", session.sessionId, time);
             session.iflySessionWords.transWords = @"";
             session.iflySessionWords.transConfidence = 0;
             session.siriSessionWords.transWords = @"";
             session.siriSessionWords.transConfidence = 0;
-            [queue.recognizeQueue removeObjectAtIndex:0];
+            [queue.recognizeQueue removeObject:session];
             [queue.speakQueue addObject:session];
         }
     }
@@ -121,6 +124,7 @@ static id _instance;
     else if (session.iflySessionWords.asrWords != nil && session.siriSessionWords.asrWords == nil) {
         // 如果超时
         if (time > session.sessionId + wholeWaitTime) {
+            NSLog(@"讯飞识别出来了 siri 没有  超时 sessionId: %zd   time: %zd", session.sessionId, time);
             session.iflySessionWords.transWords = @"";
             session.iflySessionWords.transConfidence = 0;
             session.siriSessionWords = [[CYSessionWords alloc] init];
@@ -128,7 +132,7 @@ static id _instance;
             session.siriSessionWords.asrConfidence = 0;
             session.siriSessionWords.transWords = @"";
             session.siriSessionWords.transConfidence = 0;
-            [queue.recognizeQueue removeObjectAtIndex:0];
+            [queue.recognizeQueue removeObject:session];
             [queue.speakQueue addObject:session];
         }
     }
@@ -136,6 +140,7 @@ static id _instance;
     else if (session.siriSessionWords.asrWords != nil && session.iflySessionWords.asrWords == nil) {
         // 如果超时
         if (time > session.sessionId + wholeWaitTime) {
+            NSLog(@"siri 识别出来了 讯飞没有  超时 sessionId: %zd   time: %zd", session.sessionId, time);
             session.iflySessionWords = [[CYSessionWords alloc] init];
             session.iflySessionWords.asrWords = @"";
             session.iflySessionWords.asrConfidence = 0;
@@ -143,7 +148,7 @@ static id _instance;
             session.iflySessionWords.transConfidence = 0;
             session.siriSessionWords.transWords = @"";
             session.siriSessionWords.transConfidence = 0;
-            [queue.recognizeQueue removeObjectAtIndex:0];
+            [queue.recognizeQueue removeObject:session];
             [queue.speakQueue addObject:session];
         }
     }

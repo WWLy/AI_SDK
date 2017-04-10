@@ -120,6 +120,10 @@ static id _instance;
     [_iFlySpeechRecognizer setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
 }
 
+- (void)startListening {
+    [_iFlySpeechRecognizer startListening];
+}
+
 - (void)stopListening {
     [_iFlySpeechRecognizer stopListening];
 }

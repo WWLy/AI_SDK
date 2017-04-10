@@ -28,6 +28,8 @@
 // 取消此次回话, 停止识别
 - (void)stopListen;
 
+- (void)startListening;
+
 - (void)stopListening;
 
 @end

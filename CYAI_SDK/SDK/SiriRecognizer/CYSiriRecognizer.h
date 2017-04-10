@@ -20,6 +20,7 @@
 
 @property (nonatomic, assign) BOOL sf_can_handle_audio;
 
+
 + (instancetype)shareInstance;
 
 - (void)startRecognizer;
@@ -31,5 +32,8 @@
 
 // 停止录音
 - (void)endListen;
+
+
+- (void)temp;
 
 @end
