@@ -42,6 +42,7 @@ static id _instance;
 
 #pragma mark - 启动和取消讯飞语音识别(含讯飞录音)
 - (void)initiFlySpeechRecognizer {
+    NSLog(@"讯飞开始初始化");
     //单例模式，无UI的实例
     if (_iFlySpeechRecognizer == nil) {
         _iFlySpeechRecognizer = [IFlySpeechRecognizer sharedInstance];
@@ -80,11 +81,10 @@ static id _instance;
     self.recognizeResult = @"";
 }
 
-// 开始语音识别
-- (void)startListen {
+// 开始新的识别会话
+- (void)startRecognizer {
     //若讯飞语音识别引擎(_iFlySpeechRecognizer)为空,则重新初始化.
-    if(_iFlySpeechRecognizer == nil)
-    {
+    if (_iFlySpeechRecognizer == nil) {
         [self initiFlySpeechRecognizer];
     }
     //取消本次听写会话,开始新的会话？？？是吧
@@ -102,43 +102,28 @@ static id _instance;
      成功返回YES；失败返回NO。
      启动听写后,才会调用onResults回调函数.
      ******/
-    NSLog(@"讯飞开始识别");
-    BOOL ret = [_iFlySpeechRecognizer startListening];
-    if (ret) {
-        
-    } else {
-        
-    }
+    NSLog(@"讯飞开始新的识别会话");
 }
 
 // 取消此次回话, 停止录音, 停止识别
-- (void)stopListen {
+- (void)stopRecognizer {
     NSLog(@"讯飞停止识别");
-    [_iFlySpeechRecognizer stopListening];
     [_iFlySpeechRecognizer cancel];
     [_iFlySpeechRecognizer setDelegate:nil];
     [_iFlySpeechRecognizer setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
 }
 
-- (void)startListening {
+// 开始语音识别
+- (void)startListen {
+    NSLog(@"讯飞启动录音和识别");
     [_iFlySpeechRecognizer startListening];
 }
 
-- (void)stopListening {
+- (void)stopListen {
+    NSLog(@"讯飞停止录音和识别");
     [_iFlySpeechRecognizer stopListening];
 }
 
-// 设置中文口音识别
-- (void)setiFlyAccent:(ChineseAccent)accentEnum {
-    NSString *accentStr = [CYLanguageDefine iFlyAccentStr:accentEnum];
-    IATConfig *instance = [IATConfig sharedInstance];
-    if ([instance.language isEqualToString:[IATConfig chinese]]) {
-        instance.accent = accentStr;
-        [_iFlySpeechRecognizer setParameter:instance.accent forKey:[IFlySpeechConstant ACCENT]];
-    } else if ([instance.language isEqualToString:[IATConfig english]]) {
-        //[_iFlySpeechRecognizer setParameter:instance.language forKey:[IFlySpeechConstant LANGUAGE]];
-    }
-}
 
 #pragma mark - IFlySpeechRecognizerDelegate
 
@@ -167,7 +152,6 @@ static id _instance;
         [resultString appendFormat:@"%@",key];
     }
     NSString * resultFromJson =  [ISRDataHelper stringFromJson:resultString];
-
     NSLog(@"听写结果：%@", resultFromJson);
     
     if (isLast) {
@@ -175,7 +159,7 @@ static id _instance;
         if (![CYSpeechRecognizer shareInstance].isSpeaking) {
             //最后一次识别结果, 此时会自动停止监听, 需要手动开启
             NSLog(@"最后一次识别结果, 此时会自动停止监听, 手动开启识别");
-            [self.iFlySpeechRecognizer startListening];
+            [self startListen];
         }
         return; //do not translate when we hear it.
     }
@@ -288,4 +272,40 @@ static id _instance;
     }
 }
 
+
+
+
+
+// 设置中文口音识别
+- (void)setiFlyAccent:(ChineseAccent)accentEnum {
+    NSString *accentStr = [CYLanguageDefine iFlyAccentStr:accentEnum];
+    IATConfig *instance = [IATConfig sharedInstance];
+    if ([instance.language isEqualToString:[IATConfig chinese]]) {
+        instance.accent = accentStr;
+        [_iFlySpeechRecognizer setParameter:instance.accent forKey:[IFlySpeechConstant ACCENT]];
+    } else if ([instance.language isEqualToString:[IATConfig english]]) {
+        //[_iFlySpeechRecognizer setParameter:instance.language forKey:[IFlySpeechConstant LANGUAGE]];
+    }
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

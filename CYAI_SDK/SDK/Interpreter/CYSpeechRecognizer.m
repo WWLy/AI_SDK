@@ -59,7 +59,6 @@ static id _instance;
         [self.threadLoop startRunLoop];
         
         create_network_with_data();
-        
     }
     return self;
 }
@@ -90,45 +89,28 @@ static id _instance;
 }
 
 
-- (void)initSpeaker {
-    __weak typeof(self) weakSelf = self;
-    // 合成完毕
-    self.speaker.speakOver = ^{
-        NSLog(@"speakOver");
-        // 当语音合成完毕后开始识别
-//        [weakSelf startRecognizers];
-        
-        if (weakSelf.isSpeaking) {
-            [weakSelf.iflyRecognizer startListening];
-            weakSelf.siriRecognizer.sf_do_not_send_user_is_speaking = false;
-            weakSelf.isSpeaking = false;
-        }
-
-        if ([weakSelf.delegate respondsToSelector:@selector(whenSpeakerOver)]) {
-            [weakSelf.delegate whenSpeakerOver];
-        }
-    };
-}
-
-
 // 开启讯飞和 siri 的语音识别
 - (void)startRecognizers {
     // 讯飞开始监听
+    [self.iflyRecognizer startRecognizer];
     [self.iflyRecognizer startListen];
     // siri 开始监听
+    [self.siriRecognizer startRecognizer];
     [self.siriRecognizer startListen];
 }
 
 // 停止讯飞和 siri 的语音识别
 - (void)stopRecognizers {
+    // 讯飞停止监听
+    [self.iflyRecognizer stopRecognizer];
     [self.iflyRecognizer stopListen];
-    
-    [self.siriRecognizer endListen];
+    // siri 停止监听
+    [self.siriRecognizer stopRecognizer];
+    [self.siriRecognizer stopListen];
 }
 
 
 - (void)handleSessionWithType:(CYRecognizeType)type asrWords:(NSString *)asrWords asrConfidence:(float)asrConfidence {
-    
     /**
      把识别结果转换成 sessionWords 模型
      */
@@ -137,10 +119,13 @@ static id _instance;
     sessionWords.asrConfidence = asrConfidence;
     sessionWords.recognizeType = type;
     
-    if (self.timeIntervel == 0) {
+    if (type == CYRecognizeTypeIfly) {
         self.timeIntervel = [[NSDate date] timeIntervalSince1970] * 1000;
     }
     CYSpeechSession *speechSession = [[CYCollectionQueue shareInstance] getSpeechSessionWithID:self.timeIntervel];
+    if (speechSession == nil) {
+        return;
+    }
     // 从讯飞识别过来的
     if (type == CYRecognizeTypeIfly) {
         speechSession.iflySessionWords = sessionWords;
@@ -157,6 +142,7 @@ static id _instance;
     }
     // 从 siri 识别过来的
     else if (type == CYRecognizeTypeSiri) {
+        self.timeIntervel = 0;
         speechSession.siriSessionWords = sessionWords;
         // 如果用户设置了讲中文, 就不执行翻译  否则就进行 英->中
         if (self.detectLanguage != CYDetectLanguageChinese) {
@@ -171,14 +157,24 @@ static id _instance;
     }
 }
 
-- (void)transText:(NSString *)sourceStr languageType:(CYLanguageType) languageType complete:(void(^)(NSString *))complete {
-    [[CYTranslator shareInstance] translateWithSourceType:languageType sourceString:sourceStr complete:^(CYTranslateModel *transModel) {
-        if (complete) {
-            complete(transModel.target);
-        }
-    }];
-}
 
+- (void)initSpeaker {
+    __weak typeof(self) weakSelf = self;
+    // 合成完毕
+    self.speaker.speakOver = ^{
+        NSLog(@"speakOver");
+        // 当语音合成完毕后开始识别
+        if (weakSelf.isSpeaking) {
+            [weakSelf.iflyRecognizer startListen];
+            weakSelf.siriRecognizer.sf_do_not_send_user_is_speaking = false;
+            weakSelf.isSpeaking = false;
+        }
+        
+        if ([weakSelf.delegate respondsToSelector:@selector(whenSpeakerOver)]) {
+            [weakSelf.delegate whenSpeakerOver];
+        }
+    };
+}
 
 // 自动从合成队列中取出并进行合成
 - (void)sayTextAuto {
@@ -198,14 +194,24 @@ static id _instance;
 
 - (void)sayText:(NSString *)text {
     
+    NSLog(@"开始合成,停止识别");
     self.isSpeaking = true;
     
     // 此时不再识别 siri 录音回调结果
     self.siriRecognizer.sf_do_not_send_user_is_speaking = true;
     
-    [self.iflyRecognizer stopListening];
+    [self.iflyRecognizer stopListen];
     
     [self.speaker sayText:text];
+}
+
+
+- (void)transText:(NSString *)sourceStr languageType:(CYLanguageType) languageType complete:(void(^)(NSString *))complete {
+    [[CYTranslator shareInstance] translateWithSourceType:languageType sourceString:sourceStr complete:^(CYTranslateModel *transModel) {
+        if (complete) {
+            complete(transModel.target);
+        }
+    }];
 }
 
 

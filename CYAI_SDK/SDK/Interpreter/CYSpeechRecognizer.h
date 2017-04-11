@@ -22,7 +22,6 @@ typedef enum : NSUInteger {
 @protocol CYSpeechRecognizerDelegate <NSObject>
 
 
-
 - (void)beginSayTextWithSource:(NSString *)source target:(NSString *)target;
 
 - (void)whenSpeakerOver;

@@ -22,14 +22,14 @@
 // 设置中文口音识别
 - (void)setiFlyAccent:(ChineseAccent)accentEnum;
 
+- (void)startRecognizer;
+
+- (void)stopRecognizer;
+
 // 开始语音识别
 - (void)startListen;
 
 // 取消此次回话, 停止识别
 - (void)stopListen;
-
-- (void)startListening;
-
-- (void)stopListening;
 
 @end

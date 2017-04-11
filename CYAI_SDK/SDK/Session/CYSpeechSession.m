@@ -17,6 +17,23 @@
 
 @implementation CYSpeechSession
 
+- (instancetype)init {
+    if (self = [super init]) {
+        NSLog(@"Session被创建了");
+    }
+    return self;
+}
+
+- (void)setSessionId:(long long)sessionId {
+    _sessionId = sessionId;
+    NSLog(@"sessionId 被赋值: %zd", sessionId);
+}
+
+- (void)setFlagTime:(long long)flagTime {
+    _flagTime = flagTime;
+    NSLog(@"flagTime 被赋值: %zd", flagTime);
+}
+
 
 @end
 

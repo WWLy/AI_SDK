@@ -31,11 +31,21 @@
 }
 
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [[CYSpeechRecognizer shareInstance] transText:@"你好" languageType:CYLanguageTypeChinese complete:^(NSString *result) {
+        NSLog(@"--------result: %@", result);
+    }];
+}
+
 - (void)beginSayTextWithSource:(NSString *)source target:(NSString *)target {
 
     self.source.text = source;
     
     self.result.text = target;
+}
+
+- (void)whenSpeakerOver {
+    
 }
 
 - (void)didReceiveMemoryWarning {
