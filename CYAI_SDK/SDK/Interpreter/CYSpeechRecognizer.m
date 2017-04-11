@@ -171,6 +171,14 @@ static id _instance;
     }
 }
 
+- (void)transText:(NSString *)sourceStr languageType:(CYLanguageType) languageType complete:(void(^)(NSString *))complete {
+    [[CYTranslator shareInstance] translateWithSourceType:languageType sourceString:sourceStr complete:^(CYTranslateModel *transModel) {
+        if (complete) {
+            complete(transModel.target);
+        }
+    }];
+}
+
 
 // 自动从合成队列中取出并进行合成
 - (void)sayTextAuto {

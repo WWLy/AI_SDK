@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CYCollectionQueue.h"
+#import "CYLanguageDefine.h"
 @class CYSpeaker, CYThreadRunloop;
 
 
@@ -19,6 +20,8 @@ typedef enum : NSUInteger {
 
 
 @protocol CYSpeechRecognizerDelegate <NSObject>
+
+
 
 - (void)beginSayTextWithSource:(NSString *)source target:(NSString *)target;
 
@@ -55,5 +58,10 @@ typedef enum : NSUInteger {
 - (void)sayTextAuto;
 
 - (void)sayText:(NSString *)text;
+
+
+// 直接输入一段文字给，返回翻译结果
+- (void)transText:(NSString *)sourceStr languageType:(CYLanguageType) languageType complete:(void(^)(NSString *))complete;
+
 
 @end
