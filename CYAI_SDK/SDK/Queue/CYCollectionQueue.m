@@ -44,6 +44,13 @@ static id _instance;
             return session;
         }
     }
+    // 当前时间戳
+    long long currentTime = [[NSDate date] timeIntervalSince1970] * 1000;
+    // 过了3s 才得到识别结果就不再处理了
+    if (currentTime > sessionId + 3000) {
+        return nil;
+    }
+    
     // 走到这里说明没有找到, 此时创建一个新的 session 并添加到队列中
     CYSpeechSession *session = [[CYSpeechSession alloc] init];
     session.sessionId = sessionId;

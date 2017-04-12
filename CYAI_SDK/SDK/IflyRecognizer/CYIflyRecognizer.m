@@ -25,6 +25,7 @@ static id _instance;
 
 @implementation CYIflyRecognizer
 
+
 + (instancetype)shareInstance {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -40,8 +41,11 @@ static id _instance;
     return self;
 }
 
+
 #pragma mark - 启动和取消讯飞语音识别(含讯飞录音)
+
 - (void)initiFlySpeechRecognizer {
+    NSLog(@"讯飞开始初始化");
     //单例模式，无UI的实例
     if (_iFlySpeechRecognizer == nil) {
         _iFlySpeechRecognizer = [IFlySpeechRecognizer sharedInstance];
@@ -80,11 +84,12 @@ static id _instance;
     self.recognizeResult = @"";
 }
 
-// 开始语音识别
-- (void)startListen {
+/**
+ 开始新的识别会话
+ */
+- (void)startRecognizer {
     //若讯飞语音识别引擎(_iFlySpeechRecognizer)为空,则重新初始化.
-    if(_iFlySpeechRecognizer == nil)
-    {
+    if (_iFlySpeechRecognizer == nil) {
         [self initiFlySpeechRecognizer];
     }
     //取消本次听写会话,开始新的会话？？？是吧
@@ -102,43 +107,35 @@ static id _instance;
      成功返回YES；失败返回NO。
      启动听写后,才会调用onResults回调函数.
      ******/
-    NSLog(@"讯飞开始识别");
-    BOOL ret = [_iFlySpeechRecognizer startListening];
-    if (ret) {
-        
-    } else {
-        
-    }
+    NSLog(@"讯飞开始新的识别会话");
 }
 
-// 取消此次回话, 停止录音, 停止识别
-- (void)stopListen {
+/**
+ 取消此次回话, 停止录音, 停止识别
+ */
+- (void)stopRecognizer {
     NSLog(@"讯飞停止识别");
-    [_iFlySpeechRecognizer stopListening];
     [_iFlySpeechRecognizer cancel];
     [_iFlySpeechRecognizer setDelegate:nil];
     [_iFlySpeechRecognizer setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
 }
 
-- (void)startListening {
+/**
+ 开始语音识别
+ */
+- (void)startListen {
+    NSLog(@"讯飞启动录音和识别");
     [_iFlySpeechRecognizer startListening];
 }
 
-- (void)stopListening {
+/**
+ 停止语音识别
+ */
+- (void)stopListen {
+    NSLog(@"讯飞停止录音和识别");
     [_iFlySpeechRecognizer stopListening];
 }
 
-// 设置中文口音识别
-- (void)setiFlyAccent:(ChineseAccent)accentEnum {
-    NSString *accentStr = [CYLanguageDefine iFlyAccentStr:accentEnum];
-    IATConfig *instance = [IATConfig sharedInstance];
-    if ([instance.language isEqualToString:[IATConfig chinese]]) {
-        instance.accent = accentStr;
-        [_iFlySpeechRecognizer setParameter:instance.accent forKey:[IFlySpeechConstant ACCENT]];
-    } else if ([instance.language isEqualToString:[IATConfig english]]) {
-        //[_iFlySpeechRecognizer setParameter:instance.language forKey:[IFlySpeechConstant LANGUAGE]];
-    }
-}
 
 #pragma mark - IFlySpeechRecognizerDelegate
 
@@ -167,7 +164,6 @@ static id _instance;
         [resultString appendFormat:@"%@",key];
     }
     NSString * resultFromJson =  [ISRDataHelper stringFromJson:resultString];
-
     NSLog(@"听写结果：%@", resultFromJson);
     
     if (isLast) {
@@ -175,7 +171,7 @@ static id _instance;
         if (![CYSpeechRecognizer shareInstance].isSpeaking) {
             //最后一次识别结果, 此时会自动停止监听, 需要手动开启
             NSLog(@"最后一次识别结果, 此时会自动停止监听, 手动开启识别");
-            [self.iFlySpeechRecognizer startListening];
+            [self startListen];
         }
         return; //do not translate when we hear it.
     }
@@ -245,7 +241,7 @@ static id _instance;
      other 听写出错
  *  @param error 错误描述
  */
-- (void)onError:(IFlySpeechError *) error {
+- (void)onError:(IFlySpeechError *)error {
     NSString *errText = [NSString stringWithFormat:@"听写结束：%d %@", error.errorCode, error.errorDesc];
     NSLog(@"%@",errText);
     NSString *text = @"";
@@ -268,7 +264,7 @@ static id _instance;
             [errorDict setObject:@"xxx" forKey:@"error_code"];
             [errorDict setObject:zhStr forKey:@"zh_string"];
             [errorDict setObject:enStr forKey:@"en_string"];
-//            [self.delegate onError:errorDict];
+            [self.delegate iflyOnError:errorDict];
         }
         NSLog(@"发生错误, 讯飞开始重新识别");
         BOOL ret = [_iFlySpeechRecognizer startListening];
@@ -282,10 +278,72 @@ static id _instance;
                 [errorDict setObject:@"xxx" forKey:@"error_code"];
                 [errorDict setObject:zhStr forKey:@"zh_string"];
                 [errorDict setObject:enStr forKey:@"en_string"];
-//                [self.delegate onError:errorDict];
+                [self.delegate iflyOnError:errorDict];
             }
         }
     }
 }
 
+
+/**
+ 音量回调函数
+ volume 0－30
+**/
+- (void)onVolumeChanged:(int)volume {
+    if ([self.delegate respondsToSelector:@selector(iflySpeechVolumeChanged:)]) {
+        [self.delegate iflySpeechVolumeChanged:volume];
+    }
+}
+
+/*!
+ *  停止录音回调
+ *   当调用了`stopListening`函数或者引擎内部自动检测到断点，如果没有发生错误则回调此函数。
+ *  如果发生错误则回调onError:函数
+ */
+- (void)onEndOfSpeech {
+    
+}
+
+/*!
+ *  取消识别回调
+ *    当调用了`cancel`函数之后，会回调此函数，在调用了cancel函数和回调onError之前会有一个
+ *  短暂时间，您可以在此函数中实现对这段时间的界面显示。
+ */
+- (void)onCancel {
+    
+}
+
+
+// 设置中文口音识别
+- (void)setiFlyAccent:(ChineseAccent)accentEnum {
+    NSString *accentStr = [CYLanguageDefine iFlyAccentStr:accentEnum];
+    IATConfig *instance = [IATConfig sharedInstance];
+    if ([instance.language isEqualToString:[IATConfig chinese]]) {
+        instance.accent = accentStr;
+        [_iFlySpeechRecognizer setParameter:instance.accent forKey:[IFlySpeechConstant ACCENT]];
+    } else if ([instance.language isEqualToString:[IATConfig english]]) {
+        //[_iFlySpeechRecognizer setParameter:instance.language forKey:[IFlySpeechConstant LANGUAGE]];
+    }
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

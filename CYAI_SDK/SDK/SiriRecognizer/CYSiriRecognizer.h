@@ -31,7 +31,7 @@
 - (void)startListen;
 
 // 停止录音
-- (void)endListen;
+- (void)stopListen;
 
 
 - (void)temp;

@@ -72,8 +72,6 @@ static id _instance;
 
 // 读出一段文字
 - (void)sayText:(NSString *)aString {
-
-    NSLog(@"开始合成,停止识别");
     
     AVSpeechUtterance *avSpeechUtterance = [AVSpeechUtterance speechUtteranceWithString:aString];
     

@@ -23,16 +23,6 @@ static id _instance;
     return _instance;
 }
 
-// 当 siri 和讯飞都得到结果后进行置信度的判断
-+ (void)makeDecisionOnTransAllReady {
-    CYCollectionQueue *queue = [CYSpeechRecognizer shareInstance].collectionQueue;
-    CYSpeechSession *session = queue.recognizeQueue.firstObject;
-    if (session == nil) {
-        return;
-    }
-    
-}
-
 // 识别语言的语种
 + (void)detectLanguage:(CYSpeechSession *)session {
     CYDetectLanguage language = [CYSpeechRecognizer shareInstance].detectLanguage;
