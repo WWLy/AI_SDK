@@ -45,7 +45,20 @@
 }
 
 - (void)whenSpeakerOver {
-    
+    NSLog(@"合成结束");
+}
+
+- (void)HeadsetPluggedIn {
+    NSLog(@"插入耳机");
+}
+
+- (void)HeadsetUnplugged {
+    NSLog(@"拔出耳机");
+}
+
+// 这个方法会一直触发
+- (void)speechVolumeChanged:(int)volume {
+//    NSLog(@"音量变化: %d", volume);
 }
 
 - (void)didReceiveMemoryWarning {

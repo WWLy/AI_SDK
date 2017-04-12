@@ -16,12 +16,13 @@
 #import "CYSpeaker.h"
 #import "CYThreadRunloop.h"
 #import "BNNSLanguageDetection.h"
+#import <AVFoundation/AVFoundation.h>
 
 
 /**
  SpeechRecognizer 包括讯飞和 Siri 两个语音识别 SDK
  */
-@interface CYSpeechRecognizer ()
+@interface CYSpeechRecognizer () <CYIflyRecognizerDelegate>
 
 
 @property (nonatomic, strong) CYIflyRecognizer *iflyRecognizer;
@@ -51,10 +52,12 @@ static id _instance;
 
 - (instancetype)init {
     if (self = [super init]) {
-
+        
         [self initIflyRecognizer];
         [self initSisiRecognizer];
         [self initSpeaker];
+        
+        [self initHeadset];
         
         [self.threadLoop startRunLoop];
         
@@ -63,7 +66,7 @@ static id _instance;
     return self;
 }
 
-
+#pragma mark - 语音识别
 // 初始化讯飞识别器
 - (void)initIflyRecognizer {
     __weak typeof(self) weakSelf = self;
@@ -79,7 +82,6 @@ static id _instance;
     };
 }
 
-
 // 初始化 siri 识别器
 - (void)initSisiRecognizer {
     __weak typeof(self) weakSelf = self;
@@ -87,7 +89,6 @@ static id _instance;
         [weakSelf handleSessionWithType:CYRecognizeTypeSiri asrWords:resultStr asrConfidence:asrConfidence];
     };
 }
-
 
 // 开启讯飞和 siri 的语音识别
 - (void)startRecognizers {
@@ -108,7 +109,6 @@ static id _instance;
     [self.siriRecognizer stopRecognizer];
     [self.siriRecognizer stopListen];
 }
-
 
 - (void)handleSessionWithType:(CYRecognizeType)type asrWords:(NSString *)asrWords asrConfidence:(float)asrConfidence {
     /**
@@ -157,7 +157,8 @@ static id _instance;
     }
 }
 
-
+#pragma mark - 语音合成
+// 初始化语音合成
 - (void)initSpeaker {
     __weak typeof(self) weakSelf = self;
     // 合成完毕
@@ -206,7 +207,9 @@ static id _instance;
 }
 
 
-- (void)transText:(NSString *)sourceStr languageType:(CYLanguageType) languageType complete:(void(^)(NSString *))complete {
+#pragma mark - SDK接口
+
+- (void)transText:(NSString *)sourceStr languageType:(CYLanguageType) languageType complete:(void(^)(NSString *transWords))complete {
     [[CYTranslator shareInstance] translateWithSourceType:languageType sourceString:sourceStr complete:^(CYTranslateModel *transModel) {
         if (complete) {
             complete(transModel.target);
@@ -214,12 +217,59 @@ static id _instance;
     }];
 }
 
+// 设置讯飞中文口音识别
+- (void)setiFlyAccent:(ChineseAccent)accentEnum {
+    [self.iflyRecognizer setiFlyAccent:accentEnum];
+}
+
+
+#pragma mark - 耳机拔插事件检测
+
+- (void)initHeadset {
+    //监听耳机事件
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];//创建单例对象并且使其设置为活跃状态.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:) name:AVAudioSessionRouteChangeNotification object:nil];//设置通知
+}
+
+- (void)audioRouteChangeListenerCallback:(NSNotification*)notification {
+    NSDictionary *interuptionDict = notification.userInfo;
+    NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    
+    //更新UI要放在主线程
+    dispatch_async(dispatch_get_main_queue(), ^{
+        switch (routeChangeReason) {
+            case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+                self.isSimultaneousInterpretation = YES; // 同传
+                [self.delegate HeadsetPluggedIn];
+                break;
+            case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
+                self.isSimultaneousInterpretation = NO; // 交传
+                [self.delegate HeadsetUnplugged];
+                break;
+            case AVAudioSessionRouteChangeReasonCategoryChange:
+                break;
+        }
+    });
+}
+
+
+#pragma mark - CYIflyRecognizerDelegate
+
+- (void)iflySpeechVolumeChanged:(int)volume {
+    if ([self.delegate respondsToSelector:@selector(speechVolumeChanged:)]) {
+        [self.delegate speechVolumeChanged:volume];
+    }
+}
+
+
+
 
 #pragma mark - lazy load
 
 - (CYIflyRecognizer *)iflyRecognizer {
     if (_iflyRecognizer == nil) {
         _iflyRecognizer = [CYIflyRecognizer shareInstance];
+        _iflyRecognizer.delegate = self;
     }
     return _iflyRecognizer;
 }

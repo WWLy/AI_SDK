@@ -9,10 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "CYLanguageDefine.h"
 
+@protocol CYIflyRecognizerDelegate <NSObject>
+
+- (void)iflySpeechVolumeChanged:(int)volume; // 音量变化
+
+- (void)iflyOnError:(NSDictionary *)errorDict; // 错误回调
+
+
+@end
+
+
 @interface CYIflyRecognizer : NSObject
 
 // 此处用 block 为了解耦 第一个参数是识别结果, 第二个参数是识别置信度
 @property (nonatomic, copy) void(^finishRecognizeBlock)(NSString *, float);
+
+@property (nonatomic, assign) id<CYIflyRecognizerDelegate> delegate;
 
 
 + (instancetype)shareInstance;
