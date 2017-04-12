@@ -28,6 +28,9 @@
     CYSpeechRecognizer *recognizer = [CYSpeechRecognizer shareInstance];
     recognizer.delegate = self;
     [recognizer startRecognizers];
+    
+    
+   
 }
 
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		252B24191E9CA6C000D1DFE7 /* CYAI_SDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 252B24181E9CA6C000D1DFE7 /* CYAI_SDKTests.m */; };
 		F42999C11E8A5F1C00FE79FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F42999C01E8A5F1C00FE79FD /* main.m */; };
 		F42999C41E8A5F1C00FE79FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F42999C31E8A5F1C00FE79FD /* AppDelegate.m */; };
 		F42999C71E8A5F1C00FE79FD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42999C61E8A5F1C00FE79FD /* ViewController.m */; };
@@ -54,7 +55,20 @@
 		F4B59C6E1E963DE600C62B90 /* CYDataCollector.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B59C6D1E963DE600C62B90 /* CYDataCollector.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		252B241B1E9CA6C000D1DFE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F42999B41E8A5F1C00FE79FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F42999BB1E8A5F1C00FE79FD;
+			remoteInfo = CYAI_SDK;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		252B24161E9CA6C000D1DFE7 /* CYAI_SDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CYAI_SDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		252B24181E9CA6C000D1DFE7 /* CYAI_SDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CYAI_SDKTests.m; sourceTree = "<group>"; };
+		252B241A1E9CA6C000D1DFE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F42999BC1E8A5F1C00FE79FD /* CYAI_SDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CYAI_SDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F42999C01E8A5F1C00FE79FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F42999C21E8A5F1C00FE79FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -130,6 +144,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		252B24131E9CA6C000D1DFE7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F42999B91E8A5F1C00FE79FD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,10 +172,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		252B24171E9CA6C000D1DFE7 /* CYAI_SDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				252B24181E9CA6C000D1DFE7 /* CYAI_SDKTests.m */,
+				252B241A1E9CA6C000D1DFE7 /* Info.plist */,
+			);
+			path = CYAI_SDKTests;
+			sourceTree = "<group>";
+		};
 		F42999B31E8A5F1C00FE79FD = {
 			isa = PBXGroup;
 			children = (
 				F42999BE1E8A5F1C00FE79FD /* CYAI_SDK */,
+				252B24171E9CA6C000D1DFE7 /* CYAI_SDKTests */,
 				F42999BD1E8A5F1C00FE79FD /* Products */,
 				F42999E61E8A602800FE79FD /* Frameworks */,
 			);
@@ -164,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				F42999BC1E8A5F1C00FE79FD /* CYAI_SDK.app */,
+				252B24161E9CA6C000D1DFE7 /* CYAI_SDKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -368,6 +400,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		252B24151E9CA6C000D1DFE7 /* CYAI_SDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 252B241D1E9CA6C000D1DFE7 /* Build configuration list for PBXNativeTarget "CYAI_SDKTests" */;
+			buildPhases = (
+				252B24121E9CA6C000D1DFE7 /* Sources */,
+				252B24131E9CA6C000D1DFE7 /* Frameworks */,
+				252B24141E9CA6C000D1DFE7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				252B241C1E9CA6C000D1DFE7 /* PBXTargetDependency */,
+			);
+			name = CYAI_SDKTests;
+			productName = CYAI_SDKTests;
+			productReference = 252B24161E9CA6C000D1DFE7 /* CYAI_SDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F42999BB1E8A5F1C00FE79FD /* CYAI_SDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F42999D31E8A5F1C00FE79FD /* Build configuration list for PBXNativeTarget "CYAI_SDK" */;
@@ -394,6 +444,12 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = WWLy;
 				TargetAttributes = {
+					252B24151E9CA6C000D1DFE7 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 8Y2G5F25VK;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F42999BB1E8A5F1C00FE79FD;
+					};
 					F42999BB1E8A5F1C00FE79FD = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = QJWLHJJG53;
@@ -415,11 +471,19 @@
 			projectRoot = "";
 			targets = (
 				F42999BB1E8A5F1C00FE79FD /* CYAI_SDK */,
+				252B24151E9CA6C000D1DFE7 /* CYAI_SDKTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		252B24141E9CA6C000D1DFE7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F42999BA1E8A5F1C00FE79FD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -442,6 +506,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		252B24121E9CA6C000D1DFE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				252B24191E9CA6C000D1DFE7 /* CYAI_SDKTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F42999B81E8A5F1C00FE79FD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -473,6 +545,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		252B241C1E9CA6C000D1DFE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F42999BB1E8A5F1C00FE79FD /* CYAI_SDK */;
+			targetProxy = 252B241B1E9CA6C000D1DFE7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		F42999C81E8A5F1C00FE79FD /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -493,6 +573,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		252B241E1E9CA6C000D1DFE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8Y2G5F25VK;
+				INFOPLIST_FILE = CYAI_SDKTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.colorfulclouds.app.CYAI-SDKTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CYAI_SDK.app/CYAI_SDK";
+			};
+			name = Debug;
+		};
+		252B241F1E9CA6C000D1DFE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8Y2G5F25VK;
+				INFOPLIST_FILE = CYAI_SDKTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.colorfulclouds.app.CYAI-SDKTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CYAI_SDK.app/CYAI_SDK";
+			};
+			name = Release;
+		};
 		F42999D11E8A5F1C00FE79FD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -624,6 +730,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		252B241D1E9CA6C000D1DFE7 /* Build configuration list for PBXNativeTarget "CYAI_SDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				252B241E1E9CA6C000D1DFE7 /* Debug */,
+				252B241F1E9CA6C000D1DFE7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		F42999B71E8A5F1C00FE79FD /* Build configuration list for PBXProject "CYAI_SDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
