@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CYLanguageDefine.h"
 @class CYSpeechSession;
 
 @interface CYPolicyMaker : NSObject
@@ -14,6 +15,6 @@
 + (instancetype)shareInstance;
 
 // 识别语言的语种
-+ (void)detectLanguage:(CYSpeechSession *)session;
++ (CYLanguageType)detectLanguage:(CYSpeechSession *)session;
 
 @end

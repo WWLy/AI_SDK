@@ -12,7 +12,7 @@
 
 @interface ViewController () <CYSpeechRecognizerDelegate>
 
-
+@property (nonatomic, strong) CYSpeechRecognizer *recognizer;
 
 @property (weak, nonatomic) IBOutlet UILabel *source;
 
@@ -25,16 +25,45 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CYSpeechRecognizer *recognizer = [CYSpeechRecognizer shareInstance];
-    recognizer.delegate = self;
-    [recognizer startRecognizers];
+    self.recognizer = [CYSpeechRecognizer shareInstance];
+    self.recognizer.delegate = self;
+//    [self.recognizer startRecognizers];
+
 }
 
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
     [[CYSpeechRecognizer shareInstance] transText:@"你好" languageType:CYLanguageTypeChinese complete:^(NSString *result) {
         NSLog(@"--------result: %@", result);
     }];
+}
+
+- (IBAction)startXunfei:(id)sender {
+    [self.recognizer startXunfei];
+}
+
+- (IBAction)startSiri:(id)sender {
+    [self.recognizer startSiri];
+}
+
+- (IBAction)stopXunfei:(id)sender {
+    [self.recognizer stopXunfei];
+}
+
+- (IBAction)stopSiri:(id)sender {
+    [self.recognizer stopSiri];
+}
+
+
+- (IBAction)btnClick:(UIButton *)sender {
+    if ([sender.currentTitle isEqualToString:@"自动"]) {
+        [self.recognizer changeDetectLanguage:CYDetectLanguageAuto];
+    } else if ([sender.currentTitle isEqualToString:@"中文"]) {
+        [self.recognizer changeDetectLanguage:CYDetectLanguageChinese];
+    } else if ([sender.currentTitle isEqualToString:@"英文"]) {
+        [self.recognizer changeDetectLanguage:CYDetectLanguageEnglish];
+    }
 }
 
 - (void)beginSayTextWithSource:(NSString *)source target:(NSString *)target {
@@ -42,6 +71,15 @@
     self.source.text = source;
     
     self.result.text = target;
+}
+
+- (void)speechInterpreterResultAvailable:(NSDictionary *)resultDict {
+    // 下一步就是要合成了
+    NSLog(@"识别及翻译结束resultDict: %@", resultDict);
+}
+
+- (void)onSpeechError:(NSDictionary *)errorDict {
+    NSLog(@"errorDict: %@", errorDict);
 }
 
 - (void)whenSpeakerOver {

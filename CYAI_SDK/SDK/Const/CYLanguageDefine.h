@@ -22,9 +22,21 @@ typedef enum : NSUInteger {
 } CYLanguageType;
 
 typedef enum : NSUInteger {
+    CYDetectLanguageAuto,    // 自动
+    CYDetectLanguageEnglish, // 英->中
+    CYDetectLanguageChinese  // 中->英
+} CYDetectLanguage; // 语言类型
+
+typedef enum : NSUInteger {
+    CYRecognizeTypeIfly,
+    CYRecognizeTypeSiriPart,
+    CYRecognizeTypeSiriFull,
+} CYRecognizeType; // 识别回调类型
+
+typedef enum : NSUInteger {
     ShowLanguageChinese,
     ShowLanguageEnglish
-} ShowLanguage;
+} ShowLanguage; 
 
 typedef enum : NSUInteger {
     ChineseAccent_PuTongHua,

@@ -31,6 +31,7 @@ static id _instance;
     if (self = [super init]) {
         self.recognizeQueue = [NSMutableArray arrayWithCapacity:5];
         self.speakQueue = [NSMutableArray arrayWithCapacity:5];
+        self.abandonPool = [NSMutableArray arrayWithCapacity:5];
     }
     return self;
 }
@@ -49,6 +50,12 @@ static id _instance;
     // 过了3s 才得到识别结果就不再处理了
     if (currentTime > sessionId + 3000) {
         return nil;
+    }
+    
+    for (int i = 0; i < self.abandonPool.count; ++i) {
+        if ([self.abandonPool[i] longLongValue] == sessionId) {
+            return nil;
+        }
     }
     
     // 走到这里说明没有找到, 此时创建一个新的 session 并添加到队列中

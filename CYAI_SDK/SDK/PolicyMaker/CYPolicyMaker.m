@@ -11,6 +11,7 @@
 #import "BNNSLanguageDetection.h"
 
 
+
 static id _instance;
 
 @implementation CYPolicyMaker
@@ -23,35 +24,49 @@ static id _instance;
     return _instance;
 }
 
+float EMPTY_VALUE_PLACEHOLDER = -100;
 // 识别语言的语种
-+ (void)detectLanguage:(CYSpeechSession *)session {
-    CYDetectLanguage language = [CYSpeechRecognizer shareInstance].detectLanguage;
++ (CYLanguageType)detectLanguage:(CYSpeechSession *)session {
+    CYDetectLanguage language = [[CYSpeechRecognizer shareInstance] currentDetectLanguage];
     // 如果用户指定了源语言
     if (language != CYDetectLanguageAuto) {
         if (language == CYDetectLanguageEnglish) {
-            session.adoptSessionWords = session.siriSessionWords;
+//            session.adoptSessionWords = session.fullSiriSessionWords;
+            return CYLanguageTypeEnglish;
         } else if (language == CYDetectLanguageChinese) {
-            session.adoptSessionWords = session.iflySessionWords;
+//            session.adoptSessionWords = session.iflySessionWords;
+            return CYLanguageTypeChinese;
         }
-        return;
     }
+    
     // 如果用户设置的自动模式就需要利用神经网络去判断语种
+    /*****
+     根据字典conversation内的相应字段,设置4个confidence的浮点数的值。然后扔给神经网络判断语种。
+     *****/
+    float en2zh_source_confidence, en2zh_target_confidence, zh2en_source_confidence, zh2en_target_confidence = EMPTY_VALUE_PLACEHOLDER;
+    en2zh_source_confidence = session.fullSiriSessionWords.asrConfidence ? session.fullSiriSessionWords.asrConfidence : session.partSiriSessionWords.asrConfidence ? session.partSiriSessionWords.asrConfidence : EMPTY_VALUE_PLACEHOLDER;
+    en2zh_target_confidence = session.fullSiriSessionWords.transConfidence ? session.fullSiriSessionWords.transConfidence : session.partSiriSessionWords.transConfidence ? session.partSiriSessionWords.transConfidence : EMPTY_VALUE_PLACEHOLDER;
+    zh2en_source_confidence = session.iflySessionWords.asrConfidence ? session.iflySessionWords.asrConfidence : EMPTY_VALUE_PLACEHOLDER;
+    zh2en_target_confidence = session.iflySessionWords.transConfidence ? session.iflySessionWords.transConfidence : EMPTY_VALUE_PLACEHOLDER;
+    
     float myvariable[4];
-    myvariable[0] = session.siriSessionWords.asrConfidence;
-    myvariable[1] = session.siriSessionWords.transConfidence;
-    myvariable[2] = session.iflySessionWords.asrConfidence;
-    myvariable[3] = session.iflySessionWords.transConfidence;
+    myvariable[0] = en2zh_source_confidence;
+    myvariable[1] = en2zh_target_confidence;
+    myvariable[2] = zh2en_source_confidence;
+    myvariable[3] = zh2en_target_confidence;
     
     // 调用神经网络方法进行识别
     NSLog(@"利用神经网络开始识别");
     float nn_res = bnns_predict(myvariable);
     // 中文
     if (nn_res < 0.4) {
-        session.adoptSessionWords = session.iflySessionWords;
+//        session.adoptSessionWords = session.iflySessionWords;
+        return CYLanguageTypeChinese;
     }
     // 英文
     else {
-        session.adoptSessionWords = session.siriSessionWords;
+//        session.adoptSessionWords = session.fullSiriSessionWords;
+        return CYLanguageTypeEnglish;
     }
 }
 

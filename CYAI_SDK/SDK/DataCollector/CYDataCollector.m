@@ -18,13 +18,13 @@
     
     CYSpeechRecognizer *recognizer = [CYSpeechRecognizer shareInstance];
     NSString *target = @"auto";
-    if (recognizer.detectLanguage == CYDetectLanguageChinese) {
+    if ([recognizer currentDetectLanguage] == CYDetectLanguageChinese) {
         target = @"zh";
-    } else if (recognizer.detectLanguage == CYDetectLanguageEnglish) {
+    } else if ([recognizer currentDetectLanguage] == CYDetectLanguageEnglish) {
         target = @"en";
     }
     
-    NSString * postdata = [NSString stringWithFormat:@"{\"target\": \"%@\", \"zh2en\": \"%@\", \"zh_source\": \"%@\", \"en_source\": \"%@\", \"en2zh\": \"%@\", \"features\": [%f, %f, %f, %f], \"client_type\":\"ios\"}", target, session.iflySessionWords.transWords, session.iflySessionWords.asrWords, session.siriSessionWords.asrWords, session.siriSessionWords.transWords, session.siriSessionWords.asrConfidence, session.siriSessionWords.transConfidence, session.iflySessionWords.asrConfidence, session.iflySessionWords.transConfidence];
+    NSString * postdata = [NSString stringWithFormat:@"{\"target\": \"%@\", \"zh2en\": \"%@\", \"zh_source\": \"%@\", \"en_source\": \"%@\", \"en2zh\": \"%@\", \"features\": [%f, %f, %f, %f], \"client_type\":\"ios\"}", target, session.iflySessionWords.transWords, session.iflySessionWords.asrWords, session.fullSiriSessionWords.asrWords, session.fullSiriSessionWords.transWords, session.fullSiriSessionWords.asrConfidence, session.fullSiriSessionWords.transConfidence, session.iflySessionWords.asrConfidence, session.iflySessionWords.transConfidence];
     
     
     NSString *urlStr = [[Config initOnce] getValue:@"data_collector_api"];

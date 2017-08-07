@@ -157,77 +157,83 @@ static id _instance;
  *  @param isLast   -[out] 是否最后一个结果
  */
 - (void)onResults:(NSArray *)results isLast:(BOOL)isLast {
-    
-    NSMutableString *resultString = [[NSMutableString alloc] init];
-    NSDictionary *dic = results[0];
-    for (NSString *key in dic) {
-        [resultString appendFormat:@"%@",key];
-    }
-    NSString * resultFromJson =  [ISRDataHelper stringFromJson:resultString];
-    NSLog(@"听写结果：%@", resultFromJson);
-    
-    if (isLast) {
-        // 当前没有语音合成进程
-        if (![CYSpeechRecognizer shareInstance].isSpeaking) {
-            //最后一次识别结果, 此时会自动停止监听, 需要手动开启
-            NSLog(@"最后一次识别结果, 此时会自动停止监听, 手动开启识别");
-            [self startListen];
+    // 异步回调
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableString *resultString = [[NSMutableString alloc] init];
+        NSDictionary *dic = results[0];
+        for (NSString *key in dic) {
+            [resultString appendFormat:@"%@",key];
         }
-        return; //do not translate when we hear it.
-    }
-    
-    if (self.finishRecognizeBlock) {
-        NSString * inputString = resultFromJson;
-        if([inputString hasPrefix:@"，"]) {
-            inputString = [inputString substringFromIndex:1];
+        NSString * resultFromJson =  [ISRDataHelper stringFromJson:resultString];
+        NSLog(@"听写结果：%@", resultFromJson);
+        
+        if (isLast) {
+            // 当前没有语音合成进程
+            if (![CYSpeechRecognizer shareInstance].isSpeaking) {
+                //最后一次识别结果, 此时会自动停止监听, 需要手动开启
+                NSLog(@"最后一次识别结果, 此时会自动停止监听, 手动开启识别");
+                [self startListen];
+            }
+            return; //do not translate when we hear it.
         }
-        if([inputString hasPrefix:@","]) {
-            inputString = [inputString substringFromIndex:1];
-        }
-        if([inputString hasPrefix:@"?"]) {
-            inputString = [inputString substringFromIndex:1];
-        }
-        if([inputString hasPrefix:@"？"]) {
-            inputString = [inputString substringFromIndex:1];
+        // 识别结果为空, 不作处理
+        if (resultFromJson.length == 0) {
+            return;
         }
         
-        NSUInteger length = inputString.length;
-        
-        unichar buffer[length+1];
-        [inputString getCharacters:buffer range:NSMakeRange(0, length)];
-        
-        NSInteger chinese_count = 0;
-        NSString * words = @"";
-        for(int i = 0; i < length; i++)
-        {
-            BOOL isLetter = isalpha(buffer[i]);
+        if (self.finishRecognizeBlock) {
+            NSString * inputString = resultFromJson;
+            if([inputString hasPrefix:@"，"]) {
+                inputString = [inputString substringFromIndex:1];
+            }
+            if([inputString hasPrefix:@","]) {
+                inputString = [inputString substringFromIndex:1];
+            }
+            if([inputString hasPrefix:@"?"]) {
+                inputString = [inputString substringFromIndex:1];
+            }
+            if([inputString hasPrefix:@"？"]) {
+                inputString = [inputString substringFromIndex:1];
+            }
             
-            if (!isLetter) {
-                words = [NSString stringWithFormat:@"%@%C", words, buffer[i]];
-                chinese_count ++;
-            } else {
-                words = [NSString stringWithFormat:@"%@%C", words, buffer[i]];
-                if ((i+1 < length) && ( ![[NSCharacterSet letterCharacterSet] characterIsMember: buffer[i+1]]) ) {
-                    words = [NSString stringWithFormat:@"%@", words];
+            NSUInteger length = inputString.length;
+            
+            unichar buffer[length+1];
+            [inputString getCharacters:buffer range:NSMakeRange(0, length)];
+            
+            NSInteger chinese_count = 0;
+            NSString * words = @"";
+            for(int i = 0; i < length; i++)
+            {
+                BOOL isLetter = isalpha(buffer[i]);
+                
+                if (!isLetter) {
+                    words = [NSString stringWithFormat:@"%@%C", words, buffer[i]];
+                    chinese_count ++;
+                } else {
+                    words = [NSString stringWithFormat:@"%@%C", words, buffer[i]];
+                    if ((i+1 < length) && ( ![[NSCharacterSet letterCharacterSet] characterIsMember: buffer[i+1]]) ) {
+                        words = [NSString stringWithFormat:@"%@", words];
+                    }
                 }
             }
+            
+            float source_confidence;
+            source_confidence = (float)chinese_count / length;
+            // 如果字符串中包含非中文字符, 我们认为中文的概率就降低一半
+            if (source_confidence < 0.95) {
+                source_confidence = source_confidence * 0.5;
+            }
+            
+            words = [words stringByReplacingOccurrencesOfString: @"了 呢" withString:@"了"];
+            words = [words stringByReplacingOccurrencesOfString: @"？" withString:@" "];
+            words = [words stringByReplacingOccurrencesOfString: @"?" withString:@" "];
+            
+            self.recognizeResult = words;
+            
+            self.finishRecognizeBlock(words, source_confidence);
         }
-        
-        float source_confidence;
-        source_confidence = (float)chinese_count / length;
-        
-        if (source_confidence < 0.95) {
-            source_confidence = source_confidence * 0.5;
-        }
-        
-        words = [words stringByReplacingOccurrencesOfString: @"了 呢" withString:@"了"];
-        words = [words stringByReplacingOccurrencesOfString: @"？" withString:@" "];
-        words = [words stringByReplacingOccurrencesOfString: @"?" withString:@" "];
-    
-        self.recognizeResult = words;
-        
-        self.finishRecognizeBlock(words, source_confidence);
-    }
+    });
 }
 
 /*!

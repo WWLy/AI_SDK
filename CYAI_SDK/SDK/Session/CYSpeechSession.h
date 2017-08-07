@@ -21,8 +21,11 @@
 // 讯飞识别及翻译
 @property (nonatomic, strong) CYSessionWords *iflySessionWords;
 
-// siri 识别及翻译
-@property (nonatomic, strong) CYSessionWords *siriSessionWords;
+// siri 部分识别结果
+@property (nonatomic, strong) CYSessionWords *partSiriSessionWords;
+
+// siri 完整识别及翻译
+@property (nonatomic, strong) CYSessionWords *fullSiriSessionWords;
 
 // 选中的结果(待合成的结果)
 @property (nonatomic, strong) CYSessionWords *adoptSessionWords;

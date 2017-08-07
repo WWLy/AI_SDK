@@ -15,9 +15,6 @@
 
 + (instancetype)shareInstance;
 
-
-- (void)translateWithSession:(CYSpeechSession *)session sessionWords:(CYSessionWords *)sessionWords;
-
 - (void)translateWithSourceType:(CYLanguageType)type sourceString:(NSString *)sourceString complete:(void(^)(CYTranslateModel *))complete;
 
 @end

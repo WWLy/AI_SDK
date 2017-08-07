@@ -7,18 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
-typedef enum : NSUInteger {
-    CYRecognizeTypeIfly,
-    CYRecognizeTypeSiri
-} CYRecognizeType;
-
+#import "CYLanguageDefine.h"
 
 @interface CYSessionWords : NSObject
 
 // 识别器类型
-@property (nonatomic, assign) CYRecognizeType recognizeType;
+//@property (nonatomic, assign) CYRecognizeType recognizeType;
 
 // 语音识别后的文字(ASR words)
 @property (nonatomic, copy) NSString *asrWords;

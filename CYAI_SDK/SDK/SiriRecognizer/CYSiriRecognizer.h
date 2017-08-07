@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CYLanguageDefine.h"
 
 @interface CYSiriRecognizer : NSObject
 
@@ -14,11 +15,13 @@
 @property (nonatomic, assign) float sfRecognizePartialResultConfidence;
 
 // 此处用 block 为了解耦 第一个参数是识别结果, 第二个参数是识别置信度
-@property (nonatomic, copy) void(^finishRecognizeBlock)(NSString *, float);
+@property (nonatomic, copy) void (^finishRecognizeBlock)(NSString *, float, CYRecognizeType);
 
 @property (nonatomic, assign) BOOL sf_do_not_send_user_is_speaking;
 
 @property (nonatomic, assign) BOOL sf_can_handle_audio;
+
+@property (nonatomic, assign) CYDetectLanguage detectLanguage;
 
 
 + (instancetype)shareInstance;
@@ -33,6 +36,9 @@
 // 停止录音
 - (void)stopListen;
 
+- (void)startAVCapture;
+
+- (void)endAVCapture;
 
 - (void)temp;
 

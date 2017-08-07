@@ -33,19 +33,6 @@ static id _instance;
 }
 
 
-- (void)translateWithSession:(CYSpeechSession *)session sessionWords:(CYSessionWords *)sessionWords {
-    
-    self.session = session;
-    self.sessionWords = sessionWords;
-    
-    if (sessionWords.recognizeType == CYRecognizeTypeIfly) {
-//        [self Zh2EnTranslateWithSourceString:sessionWords.asrWords]
-        
-        
-    }
-}
-
-
 - (void)translateWithSourceType:(CYLanguageType)type sourceString:(NSString *)sourceString complete:(void(^)(CYTranslateModel *))complete {
     if (type == CYLanguageTypeChinese) {
         [self Zh2EnTranslateWithSourceString:sourceString complete:complete];

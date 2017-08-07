@@ -20,6 +20,9 @@
 // 语音合成队列
 @property (atomic, strong) NSMutableArray *speakQueue;
 
+// 这个是当讯飞识别出结果且超时后把该 sessionId 记录下来
+@property (nonatomic, strong) NSMutableArray *abandonPool;
+
 
 
 + (instancetype)shareInstance;
