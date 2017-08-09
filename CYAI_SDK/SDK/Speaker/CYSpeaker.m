@@ -22,10 +22,10 @@
  */
 
 // 合成器 控制播放，暂停
-@property AVSpeechSynthesizer * avSpeechSynthesizer;
+@property (nonatomic, strong) AVSpeechSynthesizer * avSpeechSynthesizer;
 // 实例化说话的语言，说中文、英文
-@property AVSpeechSynthesisVoice *_voice_en;
-@property AVSpeechSynthesisVoice *_voice_zh;
+@property (nonatomic, strong) AVSpeechSynthesisVoice *_voice_en;
+@property (nonatomic, strong) AVSpeechSynthesisVoice *_voice_zh;
 
 
 @end
@@ -60,12 +60,12 @@ static id _instance;
     self.avSpeechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     self.avSpeechSynthesizer.delegate = self;//AVSpeechSynthesizer语音合成的代理
     
-    //遍历可用的语音种类
-    for (AVSpeechSynthesisVoice *voice in [AVSpeechSynthesisVoice speechVoices]) {
-        if ([voice.language containsString:@"en-"]) {
-//            NSLog(@"Siri语音合成器的语言:%@, 名字:%@, identifier:%@", voice.language, voice.name, voice.identifier);
-        }
-    }
+//    //遍历可用的语音种类
+//    for (AVSpeechSynthesisVoice *voice in [AVSpeechSynthesisVoice speechVoices]) {
+//        if ([voice.language containsString:@"en-"]) {
+////            NSLog(@"Siri语音合成器的语言:%@, 名字:%@, identifier:%@", voice.language, voice.name, voice.identifier);
+//        }
+//    }
 }
 
 

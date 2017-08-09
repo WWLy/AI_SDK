@@ -54,6 +54,7 @@ static id _instance;
     
     for (int i = 0; i < self.abandonPool.count; ++i) {
         if ([self.abandonPool[i] longLongValue] == sessionId) {
+            [self.abandonPool removeObjectAtIndex:i];
             return nil;
         }
     }

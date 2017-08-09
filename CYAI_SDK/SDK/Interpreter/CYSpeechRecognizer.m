@@ -60,6 +60,8 @@ static id _instance;
         
         [self initHeadset];
         
+        [self initSimultaneousInterpretation];
+        
         [self.threadLoop startRunLoop];
         
         create_network_with_data();
