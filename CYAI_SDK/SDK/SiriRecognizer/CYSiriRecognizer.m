@@ -12,17 +12,14 @@
 
 @interface CYSiriRecognizer () <SFSpeechRecognitionTaskDelegate, AVCaptureAudioDataOutputSampleBufferDelegate>
 
-@property (nonatomic, strong) SFSpeechRecognizer * sfSpeechRecognizer;
-@property (nonatomic, strong) SFSpeechRecognitionTask * sfSpeechRecogTask;
+@property (nonatomic, strong) SFSpeechRecognizer                    * sfSpeechRecognizer;
+@property (nonatomic, strong) SFSpeechRecognitionTask               * sfSpeechRecogTask;
 @property (nonatomic, strong) SFSpeechAudioBufferRecognitionRequest * sfSpeechRecognitionRequest;
 
 // 录音
-@property (nonatomic, strong) AVAudioEngine * audioEngine;
-@property (nonatomic, strong) AVCaptureSession * avCapture;
-@property (nonatomic, strong) NSMutableArray * audio_pieces; // siri 录音
-
-@property (nonatomic, strong) NSString *tempResult;
-@property (nonatomic, assign) CGFloat tempConf;
+@property (nonatomic, strong) AVAudioEngine                         * audioEngine;
+@property (nonatomic, strong) AVCaptureSession                      * avCapture;
+@property (nonatomic, strong) NSMutableArray                        * audio_pieces; // siri 录音
 
 @end
 
@@ -141,6 +138,7 @@ static CYSiriRecognizer *_instance;
 
 // 开始录音并处理录音数据
 - (void)startListen {
+    self.sf_do_not_send_user_is_speaking = false; // 开始处理录音数据
     self.sf_can_handle_audio = true; // SpeechRecognitionRequest开始处理
     [self startAVCapture]; // 开始录音
 }
@@ -148,21 +146,20 @@ static CYSiriRecognizer *_instance;
 // 结束录音停止处理
 - (void)stopListen {
     NSLog(@"siri结束录音并停止处理");
+    self.sf_do_not_send_user_is_speaking = true; // 不再处理录音数据
     self.sf_can_handle_audio = false; // SpeechRecognitionRequest不再处理
     [self endAVCapture]; // 停止录音
 }
 
 // 处理录音结束并开始识别 录音状态没有改变
-- (void)temp {
+- (void)startHandleRecognitionRequest {
     NSLog(@"讯飞告诉 siri 你可以停止了");
-    self.sf_can_handle_audio = false; // SpeechRecognitionRequest不再处理
+    self.sf_can_handle_audio = false; // SpeechRecognitionRequest不再处理 我们的录音程序不再发送数据给苹果语音识别了。但是录音还在继续，只是不发送，保证语音数据不丢失
     [self.sfSpeechRecognitionRequest endAudio]; // 这个方法 0.5-1s 后会触发 siri 识别结束的回调
     
     // 当讯飞结束后立即把 siri 的部分识别结果拿去翻译
     if (self.finishRecognizeBlock) {
         NSLog(@"siri 识别部分结果: %@ - %f - %@", self.sfRecognizePartialResult, self.sfRecognizePartialResultConfidence, [NSThread currentThread]);
-        self.tempResult = self.sfRecognizePartialResult;
-        self.tempConf = self.sfRecognizePartialResultConfidence;
         self.finishRecognizeBlock(self.sfRecognizePartialResult, self.sfRecognizePartialResultConfidence, CYRecognizeTypeSiriPart);
     }
 }
@@ -197,9 +194,10 @@ static CYSiriRecognizer *_instance;
     self.sfSpeechRecogTask = nil;
     self.sfRecognizePartialResult = @"";
     self.sfRecognizePartialResultConfidence = 0;
-    self.sf_do_not_send_user_is_speaking = false;
+//    self.sf_do_not_send_user_is_speaking = false;
     
     NSLocale *local = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+//    if (self.detectLanguage)
     self.sfSpeechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:local];
 }
 
@@ -220,7 +218,7 @@ static CYSiriRecognizer *_instance;
     // or Apple will terminate this task after 30000ms.
     NSLog(@"Siri 停止语音识别");
     self.sf_can_handle_audio = false;
-    [self.sfSpeechRecognitionRequest endAudio]; // 停止识别
+//    [self.sfSpeechRecognitionRequest endAudio]; // 停止识别
 }
 
 
@@ -258,7 +256,6 @@ static CYSiriRecognizer *_instance;
 //            return;
 //        }
         
-        
         if (self.finishRecognizeBlock) {
             self.finishRecognizeBlock(recognitionResult.bestTranscription.formattedString, avg_confidence, CYRecognizeTypeSiriFull);
         }
@@ -288,9 +285,17 @@ static CYSiriRecognizer *_instance;
         [self endAVCapture];
         [self.sfSpeechRecognitionRequest endAudio];
 
+//        NSLocale *local = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+//        self.sfSpeechRecognizer =[[SFSpeechRecognizer alloc] initWithLocale:local];
+//        self.sfSpeechRecognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
+//        
+//        [self.sfSpeechRecognizer setDelegate:nil];
+//        self.sfSpeechRecogTask = [self.sfSpeechRecognizer recognitionTaskWithRequest :self.sfSpeechRecognitionRequest delegate:self];
+//        
+//        self.sf_can_handle_audio = true;
         [self initSiriRecognizer];
-        [self startAVCapture];
         [self startRecognizer];
+        [self startAVCapture];
     }
 }
 

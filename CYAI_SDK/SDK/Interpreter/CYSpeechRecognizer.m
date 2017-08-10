@@ -80,7 +80,7 @@ static id _instance;
          调用此方法会触发 siri 的识别结束回调方法
          */
         [weakSelf handleSessionWithType:CYRecognizeTypeIfly asrWords:resultStr asrConfidence:asrConfidence];
-        [weakSelf.siriRecognizer temp];
+        [weakSelf.siriRecognizer startHandleRecognitionRequest];
         
     };
 }
@@ -189,11 +189,13 @@ static id _instance;
 // 开启讯飞和 siri 的语音识别
 - (void)startRecognizers {
     // 讯飞开始监听
-    [self.iflyRecognizer startRecognizer];
-    [self.iflyRecognizer startListen];
+    [self startXunfei];
+//    [self.iflyRecognizer startRecognizer];
+//    [self.iflyRecognizer startListen];
     // siri 开始监听
-    [self.siriRecognizer startRecognizer];
-    [self.siriRecognizer startListen];
+    [self startSiri];
+//    [self.siriRecognizer startRecognizer];
+//    [self.siriRecognizer startListen];
 }
 
 - (void)startXunfei {
@@ -211,11 +213,13 @@ static id _instance;
 // 停止讯飞和 siri 的语音识别
 - (void)stopRecognizers {
     // 讯飞停止监听
-    [self.iflyRecognizer stopRecognizer];
-    [self.iflyRecognizer stopListen];
+    [self stopXunfei];
+//    [self.iflyRecognizer stopRecognizer];
+//    [self.iflyRecognizer stopListen];
     // siri 停止监听
-    [self.siriRecognizer stopRecognizer];
-    [self.siriRecognizer stopListen];
+    [self stopSiri];
+//    [self.siriRecognizer stopRecognizer];
+//    [self.siriRecognizer stopListen];
 }
 
 - (void)stopXunfei {
@@ -300,6 +304,9 @@ static id _instance;
 
 - (void)changeDetectLanguage:(CYDetectLanguage)detectLanguage {
     self.detectLanguage = detectLanguage;
+    
+    self.siriRecognizer.detectLanguage = detectLanguage;
+    
     // 如果是中文就停止 siri 录音
     if (detectLanguage == CYDetectLanguageChinese) {
 //        [self.siriRecognizer endAVCapture];

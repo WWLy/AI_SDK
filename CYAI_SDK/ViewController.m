@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "CYSpeechRecognizer.h"
+#import "CYUtility.h"
 
 
 @interface ViewController () <CYSpeechRecognizerDelegate>
@@ -17,6 +18,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *source;
 
 @property (weak, nonatomic) IBOutlet UILabel *result;
+
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UIButton *translateBtn;
 
 @end
 
@@ -28,15 +32,24 @@
     self.recognizer = [CYSpeechRecognizer shareInstance];
     self.recognizer.delegate = self;
 //    [self.recognizer startRecognizers];
-
+    
+    self.textView.layer.borderWidth = 1;
+    self.textView.layer.cornerRadius = 5;
+    self.textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
 }
 
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
-    [[CYSpeechRecognizer shareInstance] transText:@"你好" languageType:CYLanguageTypeChinese complete:^(NSString *result) {
-        NSLog(@"--------result: %@", result);
-    }];
+    [self.textView resignFirstResponder];
+}
+- (IBAction)startAll:(id)sender {
+    [self startXunfei:nil];
+    [self startSiri:nil];
+}
+
+- (IBAction)stopAll:(id)sender {
+    [self stopXunfei:nil];
+    [self stopSiri:nil];
 }
 
 - (IBAction)startXunfei:(id)sender {
@@ -55,6 +68,16 @@
     [self.recognizer stopSiri];
 }
 
+- (IBAction)changeModel:(UISegmentedControl *)sender {
+    // 语音
+    if (sender.selectedSegmentIndex == 0) {
+        self.textView.hidden = YES;
+        self.translateBtn.hidden = YES;
+    } else if (sender.selectedSegmentIndex == 1) { // 文本
+        self.textView.hidden = NO;
+        self.translateBtn.hidden = NO;
+    }
+}
 
 - (IBAction)btnClick:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"自动"]) {
@@ -66,10 +89,27 @@
     }
 }
 
+- (IBAction)translateClick:(id)sender {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    NSString *sourceStr = self.textView.text;
+    
+    CYLanguageType targetLanguage = CYLanguageTypeEnglish;
+    if (![CYUtility didContainChineseStr:sourceStr]) {
+        targetLanguage = CYLanguageTypeChinese;
+    }
+    
+    [weakSelf.recognizer transText:sourceStr languageType:CYLanguageTypeChinese complete:^(NSString *transWords) {
+        weakSelf.source.text = sourceStr;
+        weakSelf.result.text = transWords;
+        weakSelf.textView.text = @"";
+    }];
+}
+
 - (void)beginSayTextWithSource:(NSString *)source target:(NSString *)target {
 
     self.source.text = source;
-    
     self.result.text = target;
 }
 

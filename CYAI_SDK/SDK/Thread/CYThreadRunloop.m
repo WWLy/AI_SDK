@@ -18,9 +18,9 @@
 
 @end
 
-static NSUInteger const largestWaitTime = 2000;
+//static NSUInteger const largestWaitTime = 2000;
 static float const interval = 100.0 / 1000.0;
-static float const wholeWaitTime = 3000.0;
+//static float const wholeWaitTime = 3000.0;
 
 static id _instance;
 

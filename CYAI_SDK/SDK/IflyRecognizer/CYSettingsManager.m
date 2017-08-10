@@ -7,10 +7,8 @@
 //
 
 #import "CYSettingsManager.h"
-#import "CYLanguageDefine.h"
 
 static CYSettingsManager * _instance;
-
 
 @implementation CYSettingsManager
 

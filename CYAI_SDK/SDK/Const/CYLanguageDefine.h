@@ -18,13 +18,15 @@
 
 typedef enum : NSUInteger {
     CYLanguageTypeChinese,
-    CYLanguageTypeEnglish
+    CYLanguageTypeEnglish,
+    CYLanguageTypeJapanese
 } CYLanguageType;
 
 typedef enum : NSUInteger {
     CYDetectLanguageAuto,    // 自动
     CYDetectLanguageEnglish, // 英->中
-    CYDetectLanguageChinese  // 中->英
+    CYDetectLanguageChinese, // 中->英
+    CYDetectLanguageJapanese
 } CYDetectLanguage; // 语言类型
 
 typedef enum : NSUInteger {
@@ -35,7 +37,8 @@ typedef enum : NSUInteger {
 
 typedef enum : NSUInteger {
     ShowLanguageChinese,
-    ShowLanguageEnglish
+    ShowLanguageEnglish,
+    ShowLanguageJapanese
 } ShowLanguage; 
 
 typedef enum : NSUInteger {

@@ -63,17 +63,17 @@
 
 @interface CYSpeechRecognizer : NSObject
 
-@property (nonatomic, strong) CYSpeaker         *speaker;
+@property (nonatomic, strong) CYSpeaker                       *speaker;
 
-@property (nonatomic, strong) CYThreadRunloop   *threadLoop;
+@property (nonatomic, strong) CYThreadRunloop                 *threadLoop;
 
-@property (nonatomic, strong) CYCollectionQueue *collectionQueue;
+@property (nonatomic, strong) CYCollectionQueue               *collectionQueue;
 
-@property (nonatomic, assign) BOOL              isSpeaking; // 是否正在语音合成
+@property (nonatomic, assign) BOOL                            isSpeaking;// 是否正在语音合成
 
 @property (nonatomic, assign) id <CYSpeechRecognizerDelegate> delegate;
 
-@property bool isSimultaneousInterpretation; // 同传or交传
+@property bool                                                isSimultaneousInterpretation; // 同传or交传
 
 
 #pragma mark - Function

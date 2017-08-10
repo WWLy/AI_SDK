@@ -101,6 +101,8 @@ static id _instance;
     //保存录音文件，保存在sdk工作路径中，如未设置工作路径，则默认保存在library/cache下
     [_iFlySpeechRecognizer setParameter:@"asr.pcm" forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
     
+    [_iFlySpeechRecognizer setDelegate:self];
+    
     /******
      开始识别(启动听写):
      同时只能进行一路会话，这次会话没有结束不能进行下一路会话，否则会报错。若有需要多次回话， 请在onError回调返回后请求下一路回话。

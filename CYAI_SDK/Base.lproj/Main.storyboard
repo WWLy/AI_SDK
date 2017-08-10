@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,47 +21,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9e-aa-qNT">
-                                <rect key="frame" x="35" y="294" width="243" height="123"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="原文" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6T1-1b-feR">
+                                <rect key="frame" x="66" y="231" width="243" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6T1-1b-feR">
-                                <rect key="frame" x="35" y="138" width="243" height="133"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2K-1E-VMO">
+                                <rect key="frame" x="165" y="114" width="48" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ljq-mq-CQp">
-                                <rect key="frame" x="52" y="75" width="48" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="3bh-KT-pXo"/>
-                                    <constraint firstAttribute="height" constant="34" id="QpI-uB-t0l"/>
-                                </constraints>
-                                <state key="normal" title="自动"/>
-                                <connections>
-                                    <action selector="btnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tbg-qp-6qW"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2K-1E-VMO">
-                                <rect key="frame" x="132" y="75" width="48" height="34"/>
                                 <state key="normal" title="中文"/>
                                 <connections>
                                     <action selector="btnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4RX-3K-T1i"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsq-g1-Z2y">
-                                <rect key="frame" x="217" y="75" width="48" height="34"/>
-                                <state key="normal" title="英文"/>
-                                <connections>
-                                    <action selector="btnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="otN-Ms-FE6"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2VT-Qr-v2W">
-                                <rect key="frame" x="16" y="37" width="62" height="30"/>
+                                <rect key="frame" x="18" y="76" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="开启讯飞"/>
                                 <connections>
@@ -70,7 +45,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tox-jG-MjR">
-                                <rect key="frame" x="109" y="37" width="51" height="30"/>
+                                <rect key="frame" x="108" y="76" width="51" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="开启siri"/>
                                 <connections>
@@ -78,7 +53,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lE8-nn-27O">
-                                <rect key="frame" x="181" y="37" width="62" height="30"/>
+                                <rect key="frame" x="216" y="76" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="停止讯飞"/>
                                 <connections>
@@ -86,37 +61,91 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJB-yV-t4L">
-                                <rect key="frame" x="266" y="37" width="51" height="30"/>
+                                <rect key="frame" x="302" y="76" width="51" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="停止siri"/>
                                 <connections>
                                     <action selector="stopSiri:" destination="BYZ-38-t0r" eventType="touchUpInside" id="stR-jd-lxw"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHN-MT-zSh">
+                                <rect key="frame" x="44" y="32" width="100" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="开始(总开关)"/>
+                                <connections>
+                                    <action selector="startAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FSZ-mL-J7u"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vpa-0S-1s5">
+                                <rect key="frame" x="234" y="32" width="100" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="关闭(总开关)"/>
+                                <connections>
+                                    <action selector="stopAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7la-1w-gQC"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqO-8W-0g1">
+                                <rect key="frame" x="300" y="502" width="57" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="翻译"/>
+                                <connections>
+                                    <action selector="translateClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qp1-iX-GnV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsq-g1-Z2y">
+                                <rect key="frame" x="260" y="114" width="48" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="英文"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="otN-Ms-FE6"/>
+                                </connections>
+                            </button>
+                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Pis-Gc-RHp">
+                                <rect key="frame" x="33" y="473" width="253" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="译文" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9e-aa-qNT">
+                                <rect key="frame" x="66" y="325" width="243" height="81"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="i3I-Zr-VZk">
+                                <rect key="frame" x="129" y="164" width="121" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="语音"/>
+                                    <segment title="文本"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeModel:" destination="BYZ-38-t0r" eventType="valueChanged" id="G9k-BL-1jQ"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ljq-mq-CQp">
+                                <rect key="frame" x="70" y="114" width="48" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="自动"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tbg-qp-6qW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="J2K-1E-VMO" firstAttribute="width" secondItem="Ljq-mq-CQp" secondAttribute="width" id="DVn-03-fKz"/>
-                            <constraint firstItem="Lsq-g1-Z2y" firstAttribute="width" secondItem="J2K-1E-VMO" secondAttribute="width" id="DYi-fh-Oaf"/>
-                            <constraint firstItem="J2K-1E-VMO" firstAttribute="top" secondItem="Ljq-mq-CQp" secondAttribute="top" id="GId-Sr-OPc"/>
-                            <constraint firstItem="Ljq-mq-CQp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="36" id="HJo-EQ-W16"/>
-                            <constraint firstItem="J2K-1E-VMO" firstAttribute="centerY" secondItem="Ljq-mq-CQp" secondAttribute="centerY" id="UOr-YV-aog"/>
-                            <constraint firstItem="J2K-1E-VMO" firstAttribute="leading" secondItem="Ljq-mq-CQp" secondAttribute="trailing" constant="32" id="VYC-BM-gGY"/>
-                            <constraint firstItem="Ljq-mq-CQp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="55" id="ZEg-SV-HWR"/>
-                            <constraint firstItem="J2K-1E-VMO" firstAttribute="height" secondItem="Ljq-mq-CQp" secondAttribute="height" id="a3R-hp-InH"/>
-                            <constraint firstItem="Lsq-g1-Z2y" firstAttribute="top" secondItem="J2K-1E-VMO" secondAttribute="top" id="cON-gv-Vgp"/>
-                            <constraint firstItem="Lsq-g1-Z2y" firstAttribute="height" secondItem="J2K-1E-VMO" secondAttribute="height" id="naw-uV-0f1"/>
-                            <constraint firstItem="Lsq-g1-Z2y" firstAttribute="leading" secondItem="J2K-1E-VMO" secondAttribute="trailing" constant="37" id="yQ3-oS-QDy"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="result" destination="B9e-aa-qNT" id="qhL-Ut-eV5"/>
                         <outlet property="source" destination="6T1-1b-feR" id="GPn-CI-M8g"/>
+                        <outlet property="textView" destination="Pis-Gc-RHp" id="p5S-WM-S0q"/>
+                        <outlet property="translateBtn" destination="bqO-8W-0g1" id="vF4-zo-Vy0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-348" y="91"/>
+            <point key="canvasLocation" x="-348" y="90.404797601199405"/>
         </scene>
     </scenes>
 </document>

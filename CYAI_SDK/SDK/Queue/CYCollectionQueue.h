@@ -14,13 +14,13 @@
  */
 @interface CYCollectionQueue : NSObject
 
-// 识别及翻译结果队列
-@property (atomic, strong) NSMutableArray<CYSpeechSession *> *recognizeQueue;
+/// 识别及翻译结果队列
+@property (atomic, strong) NSMutableArray <CYSpeechSession *> *recognizeQueue;
 
-// 语音合成队列
-@property (atomic, strong) NSMutableArray *speakQueue;
+/// 语音合成队列
+@property (atomic, strong) NSMutableArray    *speakQueue;
 
-// 这个是当讯飞识别出结果且超时后把该 sessionId 记录下来
+/// 这个是把处理过的记录在该队列中
 @property (nonatomic, strong) NSMutableArray *abandonPool;
 
 
